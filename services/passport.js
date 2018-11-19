@@ -1,7 +1,10 @@
-const log = require("../config/log")("PASSPORT");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const mongoose = require("mongoose");
+
+const bcrypt = require("bcrypt");
+// const saltRounds = 2;
+const log = require("../config/log")("PASSPORT");
 
 const User = mongoose.model("users");
 
@@ -20,27 +23,22 @@ passport.deserializeUser((id, done) => {
 passport.use(
   new LocalStrategy(function(username, password, done) {
     log("strategy hit!!!", username, password);
-    User.findOne({ username }, function(err, user) {
+    User.findOne({ username }, async function(err, user) {
       log("found user:::>", user);
       if (err) {
         return done(err);
       }
       if (!user) {
-        new User({
-          username,
-          password,
-          imgUrl:
-            "https://lh3.googleusercontent.com/VT-PqxMMsA2wPy7kzmuKGDIzaA3AGuXKExqnfOfwTEy5AvLIMTranbfNGheRr457RD4=s180-rw",
-          points: 250
-        })
-          .save()
-          .then(user => done(null, user));
-      } else if (user.password !== password) {
-        log("wrong password for user", user);
-        return done(null, false);
+        log("no user found", user);
+        return done(null, false, { message: "Incorrect Username" });
       } else {
-        return done(null, user);
+        const pwMatch = await bcrypt.compare(password, user.passwordHash);
+        if (!pwMatch) {
+          log("wrong password for user", user);
+          return done(null, false, { message: "Incorrect Password" });
+        }
       }
+      return done(null, user);
     });
   })
 );

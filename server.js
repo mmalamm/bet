@@ -1,16 +1,16 @@
 const express = require("express");
 const cookieParser = require("cookie-parser");
 // const cookieSession = require("cookie-session");
+const helmet = require("helmet");
 const passport = require("passport");
 const keys = require("./config/keys");
 const log = require("./config/log")("SERVER");
-const helmet = require("helmet");
 
 const app = express();
 app.use(helmet());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
+app.use(cookieParser(keys.cookieKey));
 
 app.use(passport.initialize());
 app.use(passport.session());
