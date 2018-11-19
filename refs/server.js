@@ -75,8 +75,8 @@ mongoose.connect(
 //   });
 // });
 
-app.use(passport.initialize());
-app.use(passport.session());
+// app.use(passport.initialize());
+// app.use(passport.session());
 
 app.get("/login", (req, res) =>
   res.send(`
