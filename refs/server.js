@@ -4,8 +4,8 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 
 const mongoose = require("mongoose");
-// const passport = require("passport");
-// const LocalStrategy = require("passport-local").Strategy;
+const passport = require("passport");
+const LocalStrategy = require("passport-local").Strategy;
 
 const app = express();
 const helmet = require("helmet");
@@ -15,18 +15,18 @@ app.use(helmet());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-// const { Schema } = mongoose;
+const { Schema } = mongoose;
 
-// const userSchema = new Schema({
-//   username: String,
-//   password: String,
-//   imgUrl: String,
-//   points: Number
-// });
+const userSchema = new Schema({
+  username: String,
+  password: String,
+  imgUrl: String,
+  points: Number
+});
 
-// mongoose.model("users", userSchema);
+mongoose.model("users", userSchema);
 
-// const User = mongoose.model("users");
+const User = mongoose.model("users");
 
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
@@ -36,47 +36,47 @@ mongoose.connect(
   { useNewUrlParser: true }
 );
 
-// passport.use(
-//   new LocalStrategy(function(username, password, done) {
-//     console.log("strategy hit!!!", username, password);
-//     User.findOne({ username }, function(err, user) {
-//       console.log("found user:::>", user);
-//       if (err) {
-//         return done(err);
-//       }
-//       if (!user) {
-//         new User({
-//           username,
-//           password,
-//           imgUrl:
-//             "https://lh3.googleusercontent.com/VT-PqxMMsA2wPy7kzmuKGDIzaA3AGuXKExqnfOfwTEy5AvLIMTranbfNGheRr457RD4=s180-rw"
-//         })
-//           .save()
-//           .then(user => done(null, user));
-//       } else if (user.password !== password) {
-//         console.log("wrong password for user", user);
-//         return done(null, false);
-//       } else {
-//         return done(null, user);
-//       }
-//     });
-//   })
-// );
+passport.use(
+  new LocalStrategy(function(username, password, done) {
+    console.log("strategy hit!!!", username, password);
+    User.findOne({ username }, function(err, user) {
+      console.log("found user:::>", user);
+      if (err) {
+        return done(err);
+      }
+      if (!user) {
+        new User({
+          username,
+          password,
+          imgUrl:
+            "https://lh3.googleusercontent.com/VT-PqxMMsA2wPy7kzmuKGDIzaA3AGuXKExqnfOfwTEy5AvLIMTranbfNGheRr457RD4=s180-rw"
+        })
+          .save()
+          .then(user => done(null, user));
+      } else if (user.password !== password) {
+        console.log("wrong password for user", user);
+        return done(null, false);
+      } else {
+        return done(null, user);
+      }
+    });
+  })
+);
 
-// passport.serializeUser((user, done) => {
-//   console.log("serializing user:", user);
-//   done(null, user.id);
-// });
+passport.serializeUser((user, done) => {
+  console.log("serializing user:", user);
+  done(null, user.id);
+});
 
-// passport.deserializeUser((id, done) => {
-//   console.log("deserializing user:", id);
-//   User.findById(id).then(user => {
-//     done(null, user);
-//   });
-// });
+passport.deserializeUser((id, done) => {
+  console.log("deserializing user:", id);
+  User.findById(id).then(user => {
+    done(null, user);
+  });
+});
 
-// app.use(passport.initialize());
-// app.use(passport.session());
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.get("/login", (req, res) =>
   res.send(`

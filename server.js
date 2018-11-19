@@ -1,5 +1,4 @@
 const express = require("express");
-const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 // const cookieSession = require("cookie-session");
 const passport = require("passport");
@@ -18,14 +17,7 @@ app.use(passport.session());
 
 require("./models/User");
 require("./services/passport");
-
-const db = mongoose.connection;
-db.on("error", e => log("connection error:", e));
-db.on("open", g => log("connection opened:", g));
-mongoose.connect(
-  keys.mongoUri,
-  { useNewUrlParser: true }
-);
+require("./services/mongoose");
 
 require("./routes/authRoutes")(app);
 

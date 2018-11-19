@@ -1,3 +1,4 @@
+const log = require("../config/log")("PASSPORT");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const mongoose = require("mongoose");
@@ -5,12 +6,12 @@ const mongoose = require("mongoose");
 const User = mongoose.model("users");
 
 passport.serializeUser((user, done) => {
-  console.log("serializing user:", user);
+  log("serializing user:", user);
   done(null, user.id);
 });
 
 passport.deserializeUser((id, done) => {
-  console.log("deserializing user:", id);
+  log("deserializing user:", id);
   User.findById(id).then(user => {
     done(null, user);
   });
@@ -18,9 +19,9 @@ passport.deserializeUser((id, done) => {
 
 passport.use(
   new LocalStrategy(function(username, password, done) {
-    console.log("strategy hit!!!", username, password);
+    log("strategy hit!!!", username, password);
     User.findOne({ username }, function(err, user) {
-      console.log("found user:::>", user);
+      log("found user:::>", user);
       if (err) {
         return done(err);
       }
@@ -35,7 +36,7 @@ passport.use(
           .save()
           .then(user => done(null, user));
       } else if (user.password !== password) {
-        console.log("wrong password for user", user);
+        log("wrong password for user", user);
         return done(null, false);
       } else {
         return done(null, user);
