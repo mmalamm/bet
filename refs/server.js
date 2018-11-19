@@ -10,7 +10,7 @@ const mongoose = require("mongoose");
 const app = express();
 const helmet = require("helmet");
 
-app.user(helmet());
+app.use(helmet());
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
