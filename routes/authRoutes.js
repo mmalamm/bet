@@ -22,7 +22,9 @@ module.exports = app => {
     "/login",
     passport.authenticate("local", { failureRedirect: "/failed" }),
     (req, res) => {
-      console.log(req.body);
+      // console.log(req.body);
+      // res.send(req.user);
+      res.cookie("username", username);
       res.send(req.user);
     }
   );
