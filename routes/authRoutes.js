@@ -43,4 +43,8 @@ module.exports = app => {
     console.log(req.cookies);
     res.send(req.user);
   });
+
+  app.get("/getsession", (req, res, next) => {
+    res.send("my fav color: " + req.session.favColor);
+  });
 };

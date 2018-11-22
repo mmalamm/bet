@@ -3,8 +3,10 @@ const cookieParser = require("cookie-parser");
 // const cookieSession = require("cookie-session");
 const helmet = require("helmet");
 const passport = require("passport");
+
 const keys = require("./config/keys");
 const log = require("./config/log")("SERVER");
+const session = require("./session");
 
 const app = express();
 app.use(helmet());
@@ -13,7 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser(keys.cookieKey));
 
 app.use(passport.initialize());
-app.use(passport.session());
+app.use(session);
 
 require("./models/User");
 require("./services/passport");
