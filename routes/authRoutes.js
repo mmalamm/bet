@@ -5,6 +5,21 @@ module.exports = app => {
   app.get("/login", (req, res) =>
     res.send(`
       <form action="/login" method="post">
+        <h1>Login</h1>
+        <div>
+          <label>Username:</label> <input type="text" name="username" /><br />
+        </div>
+        <div>
+          <label>Password:</label> <input type="password" name="password" />
+        </div>
+        <div><input type="submit" value="Submit" /></div>
+      </form>
+    `)
+  );
+  app.get("/register", (req, res) =>
+    res.send(`
+      <form action="/register" method="post">
+        <h1>Register</h1>
         <div>
           <label>Username:</label> <input type="text" name="username" /><br />
         </div>
@@ -24,7 +39,7 @@ module.exports = app => {
     (req, res) => {
       // console.log(req.body);
       // res.send(req.user);
-      res.cookie("username", username);
+      res.cookie("username", req.user.username);
       res.send(req.user);
     }
   );
@@ -41,10 +56,12 @@ module.exports = app => {
   app.get("/current_user", (req, res) => {
     console.log(req.body);
     console.log(req.cookies);
+    console.log(req.session);
     res.send(req.user);
   });
 
   app.get("/getsession", (req, res, next) => {
+    console.log("session", req.session);
     res.send("my fav color: " + req.session.favColor);
   });
 };

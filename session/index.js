@@ -3,8 +3,6 @@ const MongoStore = require("connect-mongo")(session);
 const keys = require("../config/keys");
 const db = require("../services/mongoose");
 
-console.log(db);
-
 if (process.env.NODE_ENV === "production") {
   module.exports = session({
     secret: keys.cookieKey,

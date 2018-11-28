@@ -14,8 +14,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser(keys.cookieKey));
 
-app.use(passport.initialize());
 app.use(session);
+app.use(passport.initialize());
+app.use(passport.session());
 
 require("./models/User");
 require("./services/passport");
