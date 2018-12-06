@@ -2,6 +2,7 @@ const passport = require("passport");
 const newUserHandler = require("./newUserHandler");
 
 module.exports = app => {
+  ///
   app.get("/login", (req, res) =>
     res.send(`
       <form action="/login" method="post">
@@ -30,6 +31,7 @@ module.exports = app => {
       </form>
     `)
   );
+  ///
 
   app.post("/register", newUserHandler);
 
@@ -43,8 +45,19 @@ module.exports = app => {
       res.send(req.user);
     }
   );
+  app.post(
+    "/auth/local",
+    passport.authenticate("local", { failureRedirect: "/failed" }),
+    (req, res) => {
+      // console.log(req.body);
+      // res.send(req.user);
+      res.cookie("username", req.user.username);
+      res.send(req.user);
+    }
+  );
   app.get("/logout", (req, res) => {
     req.logout();
+    res.clearCookie("username");
     res.send(req.user);
   });
 
