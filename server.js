@@ -20,7 +20,7 @@ app.use(passport.session());
 
 require("./models/User");
 require("./services/passport");
-require("./services/mongoose");
+// require("./services/mongoose");
 
 require("./routes/authRoutes")(app);
 

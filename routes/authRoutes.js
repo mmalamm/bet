@@ -1,5 +1,6 @@
 const passport = require("passport");
 const newUserHandler = require("./newUserHandler");
+const log = require("../config/log")("authRoutes!~");
 
 module.exports = app => {
   ///
@@ -39,7 +40,7 @@ module.exports = app => {
     "/login",
     passport.authenticate("local", { failureRedirect: "/failed" }),
     (req, res) => {
-      // console.log(req.body);
+      // log(req.body);
       // res.send(req.user);
       res.cookie("username", req.user.username);
       res.send(req.user);
@@ -49,7 +50,7 @@ module.exports = app => {
     "/auth/local",
     passport.authenticate("local", { failureRedirect: "/failed" }),
     (req, res) => {
-      // console.log(req.body);
+      // log(req.body);
       // res.send(req.user);
       res.cookie("username", req.user.username);
       res.send(req.user);
@@ -62,19 +63,19 @@ module.exports = app => {
   });
 
   app.get("/failed", (req, res) => {
-    console.log(req.flash);
+    log(req.flash);
     res.send(req.body);
   });
 
   app.get("/current_user", (req, res) => {
-    console.log(req.body);
-    console.log(req.cookies);
-    console.log(req.session);
+    log(req.body);
+    log(req.cookies);
+    log(req.session);
     res.send(req.user);
   });
 
   app.get("/getsession", (req, res, next) => {
-    console.log("session", req.session);
+    log("session", req.session);
     res.send("my fav color: " + req.session.favColor);
   });
 };
