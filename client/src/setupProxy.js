@@ -6,6 +6,7 @@
 const proxy = require("http-proxy-middleware");
 
 module.exports = function(app) {
+  app.use(proxy("/auth/register", { target: "http://localhost:5050" }));
   app.use(proxy("/auth/local", { target: "http://localhost:5050" }));
   app.use(proxy("/auth/github", { target: "http://localhost:5050" }));
   app.use(proxy("/api/*", { target: "http://localhost:5050" }));
