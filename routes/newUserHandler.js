@@ -5,11 +5,6 @@ const bcrypt = require("bcrypt");
 const saltRounds = 2;
 
 module.exports = async (req, res, next) => {
-  console.log(req.body);
-
-  // bcrypt.hash(myPlaintextPassword, saltRounds, function(err, hash) {
-  //   // Store hash in your password DB.
-  // });
   const { username, password } = req.body;
 
   const hash = await bcrypt.hash(password, saltRounds);
@@ -23,6 +18,4 @@ module.exports = async (req, res, next) => {
   })
     .save()
     .then(user => res.send({ message: "registered", user }));
-
-  // res.send({ message: "registered" });
 };

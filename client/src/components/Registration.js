@@ -2,7 +2,7 @@ import React from "react";
 
 const Registration = props => {
   return (
-    <form action="/register" method="post">
+    <form action="/auth/register" method="post">
       <h1>Register</h1>
       <div>
         <label>Username:</label> <input type="text" name="username" />

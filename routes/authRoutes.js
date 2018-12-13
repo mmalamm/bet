@@ -3,7 +3,7 @@ const newUserHandler = require("./newUserHandler");
 const log = require("../config/log")("authRoutes!~");
 
 module.exports = app => {
-  app.post("auth/register", newUserHandler);
+  app.post("/auth/register", newUserHandler);
 
   app.post(
     "/auth/local",
