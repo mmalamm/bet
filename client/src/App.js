@@ -7,6 +7,8 @@ import Navbar from "./components/Navbar";
 import Home from "./components/Home";
 import Registration from "./components/Registration";
 
+// import renderModal from "./renderModal";
+
 import "./App.css";
 
 class AppRouter extends React.Component {
