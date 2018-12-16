@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 
 const bcrypt = require("bcrypt");
 // const saltRounds = 2;
-const log = require("../config/log")("PASSPORT");
+const log = require("../config/log")("PASSPORT", "magenta");
 
 const User = mongoose.model("users");
 
@@ -22,7 +22,7 @@ passport.deserializeUser((id, done) => {
 
 passport.use(
   new LocalStrategy(function(username, password, done) {
-    log("strategy hit!!!", username, password);
+    log("Passport local strategy activated:", username, password);
     User.findOne({ username }, async function(err, user) {
       log("found user:::>", user);
       if (err) {

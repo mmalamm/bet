@@ -1,13 +1,13 @@
 const passport = require("passport");
 const newUserHandler = require("./newUserHandler");
-const log = require("../config/log")("authRoutes!~", "red");
+const log = require("../config/log")("authRoutes!~", "bgRed");
 
 module.exports = app => {
   app.post("/auth/register", newUserHandler);
 
   app.post(
     "/auth/local",
-    passport.authenticate("local", { failureRedirect: "/failed" }),
+    passport.authenticate("local", { failureRedirect: "/login?r=authFailure" }),
     (req, res) => {
       res.cookie("username", req.user.username);
       res.redirect("/");

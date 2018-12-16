@@ -6,7 +6,7 @@ const passport = require("passport");
 
 const keys = require("./config/keys");
 
-const log = require("./config/log")("SERVER", "yellow");
+const log = require("./config/log")("SERVER", "blue");
 
 const session = require("./session");
 
@@ -28,7 +28,6 @@ app.use("/api", authenticate);
 
 require("./models/User");
 require("./services/passport");
-// require("./services/mongoose");
 
 require("./routes/authRoutes")(app);
 
