@@ -1,23 +1,55 @@
 import React from "react";
+import axios from "axios";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+
 import Login from "./components/Login";
 import Navbar from "./components/Navbar";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import Home from "./components/Home";
 import Registration from "./components/Registration";
 
 import "./App.css";
 
-const Index = () => <h2>Home</h2>;
+class AppRouter extends React.Component {
+  state = {
+    username: null,
+    loggedIn: null
+  };
+  componentDidMount() {
+    axios
+      .get("/api/current_user")
+      .then(data => data.data)
+      .then(username => {
+        this.setState({ loggedIn: Boolean(username), username });
+      });
+  }
+  render() {
+    const { loggedIn, username } = this.state;
 
-const AppRouter = () => (
-  <Router>
-    <div>
-      <Navbar />
-
-      <Route path="/" exact component={Index} />
-      <Route path="/login/" component={Login} />
-      <Route path="/register/" component={Registration} />
-    </div>
-  </Router>
-);
+    const loggedOutJSX = (
+      <Router>
+        <div>
+          <Navbar loggedIn={loggedIn} />
+          <Route path="/" exact component={Home} />
+          <Route path="/login/" component={Login} />
+          <Route path="/register/" component={Registration} />
+        </div>
+      </Router>
+    );
+    const loader = <h1>Loading...</h1>;
+    const loggedInJSX = (
+      <Router>
+        <div>
+          <Navbar loggedIn={loggedIn} />
+          <Route
+            path="/"
+            exact
+            render={props => <Home username={username} />}
+          />
+        </div>
+      </Router>
+    );
+    return loggedIn === null ? loader : loggedIn ? loggedInJSX : loggedOutJSX;
+  }
+}
 
 export default AppRouter;

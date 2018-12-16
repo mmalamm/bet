@@ -1,6 +1,6 @@
 const passport = require("passport");
 const newUserHandler = require("./newUserHandler");
-const log = require("../config/log")("authRoutes!~");
+const log = require("../config/log")("authRoutes!~", "red");
 
 module.exports = app => {
   app.post("/auth/register", newUserHandler);
@@ -10,13 +10,14 @@ module.exports = app => {
     passport.authenticate("local", { failureRedirect: "/failed" }),
     (req, res) => {
       res.cookie("username", req.user.username);
-      res.send(req.user);
+      res.redirect("/");
     }
   );
-  app.get("/logout", (req, res) => {
+
+  app.get("/api/logout", (req, res) => {
     req.logout();
     res.clearCookie("username");
-    res.send(req.user);
+    res.redirect("/");
   });
 
   app.get("/failed", (req, res) => {
@@ -24,11 +25,12 @@ module.exports = app => {
     res.send(req.body);
   });
 
-  app.get("/current_user", (req, res) => {
-    log(req.body);
-    log(req.cookies);
-    log(req.session);
-    res.send(req.user);
+  app.get("/api/current_user", (req, res) => {
+    log(req.user);
+    if (req.user) {
+      return res.send(req.user.username);
+    }
+    res.send(null);
   });
 
   app.get("/getsession", (req, res, next) => {

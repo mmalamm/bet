@@ -1,8 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Navbar = _ => {
-  return (
+const Navbar = ({ loggedIn }) =>
+  loggedIn ? (
+    <form action="/api/logout">
+      <input type="submit" value="Log Out"></input>
+    </form>
+  ) : (
     <nav>
       <ul>
         <li>
@@ -17,6 +21,5 @@ const Navbar = _ => {
       </ul>
     </nav>
   );
-};
 
 export default Navbar;

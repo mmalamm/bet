@@ -5,18 +5,26 @@ const helmet = require("helmet");
 const passport = require("passport");
 
 const keys = require("./config/keys");
-const log = require("./config/log")("SERVER");
+
+const log = require("./config/log")("SERVER", "yellow");
+
 const session = require("./session");
 
 const app = express();
 app.use(helmet());
-app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser(keys.cookieKey));
 
 app.use(session);
 app.use(passport.initialize());
 app.use(passport.session());
+
+const authenticate = (req, res, next) => {
+  log(req.user);
+  next();
+};
+
+app.use("/api", authenticate);
 
 require("./models/User");
 require("./services/passport");
