@@ -24,7 +24,6 @@ passport.use(
   new LocalStrategy(function(username, password, done) {
     log("Passport local strategy activated:", username, password);
     User.findOne({ username }, async function(err, user) {
-      log("found user:::>", user);
       if (err) {
         return done(err);
       }
@@ -32,6 +31,7 @@ passport.use(
         log("no user found", user);
         return done(null, false, { message: "Incorrect Username" });
       } else {
+        log("found user:::>", user);
         const pwMatch = await bcrypt.compare(password, user.passwordHash);
         if (!pwMatch) {
           log("wrong password for user", user);
