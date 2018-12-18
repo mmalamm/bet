@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const User = mongoose.model("users");
+const log = require("../config/log")("newUserHandler~!", "bgGreen");
 
 const bcrypt = require("bcrypt");
 const saltRounds = 2;
@@ -17,5 +18,8 @@ module.exports = async (req, res, next) => {
     points: 250
   })
     .save()
-    .then(user => res.send({ message: "registered", user }));
+    .then(user => {
+      log("NEW USER REGISTERED:", user);
+      res.redirect(307, "/auth/local");
+    });
 };
