@@ -10,6 +10,8 @@ const log = require("./config/log")("SERVER", "blue");
 
 const session = require("./session");
 
+const authenticate = require('./middlewares/authenticate');
+
 const app = express();
 app.use(helmet());
 app.use(express.urlencoded({ extended: true }));
@@ -19,10 +21,6 @@ app.use(session);
 app.use(passport.initialize());
 app.use(passport.session());
 
-const authenticate = (req, res, next) => {
-  log(req.user);
-  next();
-};
 
 app.use("/api", authenticate);
 

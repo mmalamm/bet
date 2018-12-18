@@ -26,7 +26,6 @@ module.exports = app => {
   });
 
   app.get("/api/current_user", (req, res) => {
-    log("req.user is:", req.user);
     if (req.user) {
       return res.send(req.user.username);
     }

@@ -2,10 +2,10 @@ import React from "react";
 import axios from "axios";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
-import Login from "./components/Login";
-import Navbar from "./components/Navbar";
-import Home from "./components/Home";
-import Registration from "./components/Registration";
+import Login from "./Login";
+import Navbar from "./Navbar";
+import Home from "./Home";
+import Registration from "./Registration";
 
 // import renderModal from "./renderModal";
 
