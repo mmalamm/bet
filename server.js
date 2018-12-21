@@ -7,10 +7,11 @@ const passport = require("passport");
 const keys = require("./config/keys");
 
 const log = require("./config/log")("SERVER", "blue");
+const ioLog = require("./config/log")("socketIO", "yellow");
 
 const session = require("./session");
 
-const authenticate = require('./middlewares/authenticate');
+const authenticate = require("./middlewares/authenticate");
 
 const app = express();
 app.use(helmet());
@@ -21,7 +22,6 @@ app.use(session);
 app.use(passport.initialize());
 app.use(passport.session());
 
-
 app.use("/api", authenticate);
 
 require("./models/User");
@@ -29,4 +29,11 @@ require("./services/passport");
 
 require("./routes/authRoutes")(app);
 
-app.listen(5050, () => log("server running on pt 5050"));
+const server = app.listen(5050, () => log("server running on pt 5050"));
+
+const io = require("socket.io").listen(server);
+
+io.on("connection", socket => {
+  ioLog("user connected to socket:", socket.id);
+  socket.on("disconnecting", e => ioLog("dc from socket", e));
+});

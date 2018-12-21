@@ -6,6 +6,7 @@ import Login from "./Login";
 import Navbar from "./Navbar";
 import Home from "./Home";
 import Registration from "./Registration";
+import io from "socket.io-client";
 
 // import renderModal from "./renderModal";
 
@@ -21,7 +22,15 @@ class AppRouter extends React.Component {
       .get("/api/current_user")
       .then(data => data.data)
       .then(username => {
-        this.setState({ loggedIn: Boolean(username), username });
+        const loggedIn = Boolean(username);
+        if (loggedIn) {
+          this.socket = io('/');
+          this.socket.on("connect", socket =>
+            console.log("connected to socket:", this.socket.id)
+          );
+        }
+
+        this.setState({ loggedIn, username });
       });
   }
   render() {
