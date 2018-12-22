@@ -1,13 +1,12 @@
 const express = require("express");
 const cookieParser = require("cookie-parser");
-// const cookieSession = require("cookie-session");
+
 const helmet = require("helmet");
 const passport = require("passport");
 
 const keys = require("./config/keys");
 
 const log = require("./config/log")("SERVER", "blue");
-const ioLog = require("./config/log")("socketIO", "yellow");
 
 const session = require("./session");
 
@@ -31,26 +30,4 @@ require("./routes/authRoutes")(app);
 
 const server = app.listen(5050, () => log("server running on pt 5050"));
 
-const io = require("socket.io")(server);
-const passportSocketIo = require("passport.socketio");
-const expressSession = require("express-session");
-const MongoStore = require("connect-mongo")(expressSession);
-const db = require("./services/mongoose");
-
-io.use(
-  passportSocketIo.authorize({
-    cookieParser,
-    key: "connect.sid",
-    secret: keys.cookieKey,
-    store: new MongoStore({
-      mongooseConnection: db
-    })
-  })
-);
-
-io.on("connection", socket => {
-  ioLog("user connected to socket:", socket.request.user);
-  io.emit("welcome", "hey");
-  socket.on("playTurn", turn => ioLog(turn));
-  socket.on("disconnecting", e => ioLog("dc from socket", e));
-});
+require("./services/socketio")(server);

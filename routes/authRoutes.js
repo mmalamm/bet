@@ -9,21 +9,17 @@ module.exports = app => {
     "/auth/local",
     passport.authenticate("local", { failureRedirect: "/login?r=authFailure" }),
     (req, res) => {
+      log('Loggin in user:', req.user);
       res.cookie("username", req.user.username);
       res.redirect("/");
     }
   );
 
-  app.get("/api/logout", (req, res) => {
+  app.get("/auth/logout", (req, res) => {
     log('Logging out user:', req.user);
     req.logout();
     res.clearCookie("username");
     res.redirect("/");
-  });
-
-  app.get("/failed", (req, res) => {
-    log(req.flash);
-    res.send(req.body);
   });
 
   app.get("/api/current_user", (req, res) => {
@@ -31,10 +27,5 @@ module.exports = app => {
       return res.send(req.user.username);
     }
     res.send(null);
-  });
-
-  app.get("/getsession", (req, res, next) => {
-    log("session", req.session);
-    res.send("my fav color: " + req.session.favColor);
   });
 };

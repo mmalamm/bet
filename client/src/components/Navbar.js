@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Navbar = ({ loggedIn }) =>
   loggedIn ? (
-    <form action="/api/logout">
+    <form action="/auth/logout">
       <input type="submit" value="Log Out"></input>
     </form>
   ) : (
