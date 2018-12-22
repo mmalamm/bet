@@ -35,5 +35,7 @@ const io = require("socket.io").listen(server);
 
 io.on("connection", socket => {
   ioLog("user connected to socket:", socket.id);
+  io.emit("welcome", "hey");
+  socket.on("playTurn", turn => ioLog(turn));
   socket.on("disconnecting", e => ioLog("dc from socket", e));
 });

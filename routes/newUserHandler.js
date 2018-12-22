@@ -10,6 +10,12 @@ module.exports = async (req, res, next) => {
 
   const hash = await bcrypt.hash(password, saltRounds);
 
+  const existingUserWithUsername = await User.find({ username });
+
+  if (existingUserWithUsername) {
+    return res.redirect("/register?r=usernameTaken");
+  }
+
   new User({
     username,
     passwordHash: hash,

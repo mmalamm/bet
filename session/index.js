@@ -9,13 +9,16 @@ if (process.env.NODE_ENV === "production") {
     resave: false,
     saveUninitialized: false,
     store: new MongoStore({
-      mongooseConnection: db.mongoose.connection
+      mongooseConnection: db
     })
   });
 } else {
   module.exports = session({
     secret: keys.cookieKey,
     resave: false,
-    saveUninitialized: true
+    saveUninitialized: true,
+    store: new MongoStore({ 
+      mongooseConnection: db,
+    })
   });
 }

@@ -15,6 +15,7 @@ module.exports = app => {
   );
 
   app.get("/api/logout", (req, res) => {
+    log('Logging out user:', req.user);
     req.logout();
     res.clearCookie("username");
     res.redirect("/");

@@ -24,9 +24,12 @@ class AppRouter extends React.Component {
       .then(username => {
         const loggedIn = Boolean(username);
         if (loggedIn) {
-          this.socket = io('/');
+          this.socket = io();
           this.socket.on("connect", socket =>
             console.log("connected to socket:", this.socket.id)
+          );
+          this.socket.on("welcome", thing =>
+            console.log("welcomed with thing:", thing)
           );
         }
 
@@ -54,7 +57,7 @@ class AppRouter extends React.Component {
           <Route
             path="/"
             exact
-            render={props => <Home username={username} />}
+            render={props => <Home username={username} io={this.socket} />}
           />
         </div>
       </Router>
