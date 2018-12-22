@@ -12,11 +12,13 @@ import io from "socket.io-client";
 
 import "./App.css";
 
+const initialState = {
+  username: null,
+  loggedIn: null
+};
+
 class AppRouter extends React.Component {
-  state = {
-    username: null,
-    loggedIn: null
-  };
+  state = { ...initialState };
   componentDidMount() {
     axios
       .get("/api/current_user")
@@ -31,6 +33,13 @@ class AppRouter extends React.Component {
           this.socket.on("welcome", thing =>
             console.log("welcomed with thing:", thing)
           );
+          this.socket.on("disconnect", e => {
+            console.log("disconnected from socket...");
+            axios.post("/api/logout").then(e => {
+              console.log(e);
+              this.setState({ loggedIn: false, username: null });
+            });
+          });
         }
 
         this.setState({ loggedIn, username });

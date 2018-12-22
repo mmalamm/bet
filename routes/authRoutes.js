@@ -9,14 +9,14 @@ module.exports = app => {
     "/auth/local",
     passport.authenticate("local", { failureRedirect: "/login?r=authFailure" }),
     (req, res) => {
-      log('Loggin in user:', req.user);
+      log("Loggin in user:", req.user);
       res.cookie("username", req.user.username);
       res.redirect("/");
     }
   );
 
   app.get("/auth/logout", (req, res) => {
-    log('Logging out user:', req.user);
+    log("Logging out user:", req.user);
     req.logout();
     res.clearCookie("username");
     res.redirect("/");
@@ -27,5 +27,12 @@ module.exports = app => {
       return res.send(req.user.username);
     }
     res.send(null);
+  });
+
+  app.post("/api/logout", (req, res) => {
+    log("Logging out user via API:", req.user);
+    req.logout();
+    res.clearCookie("username");
+    res.send("logged out");
   });
 };
