@@ -10,9 +10,13 @@ module.exports = async (req, res, next) => {
 
   const hash = await bcrypt.hash(password, saltRounds);
 
-  const existingUserWithUsername = await User.find({ username });
+  const existingUserWithUsername = await User.findOne({ username });
 
   if (existingUserWithUsername) {
+    log(
+      "Tried to register new user; would overwrite:",
+      existingUserWithUsername
+    );
     return res.redirect("/register?r=usernameTaken");
   }
 

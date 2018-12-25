@@ -34,12 +34,14 @@ class AppRouter extends React.Component {
             console.log("welcomed with thing:", thing)
           );
           this.socket.on("disconnect", e => {
-            console.log("disconnected from socket...");
+            console.log("disconnected from socket...", e);
             axios.post("/api/logout").then(e => {
               console.log(e);
               this.setState({ loggedIn: false, username: null });
             });
           });
+          this.socket.on("updateStatus", d => console.log(d));
+          this.socket.on("currentUsers", d => console.log(d));
         }
 
         this.setState({ loggedIn, username });
