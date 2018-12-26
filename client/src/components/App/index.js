@@ -1,11 +1,12 @@
 import React from "react";
 import axios from "axios";
+import { connect } from "react-redux";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
-import Login from "./Login";
-import Navbar from "./Navbar";
-import Home from "./Home";
-import Registration from "./Registration";
+import Login from "../Login";
+import Navbar from "../Navbar";
+import Home from "../Home";
+import Registration from "../Registration";
 import io from "socket.io-client";
 
 // import renderModal from "./renderModal";
@@ -20,6 +21,7 @@ const initialState = {
 class AppRouter extends React.Component {
   state = { ...initialState };
   componentDidMount() {
+    console.log(this.props);
     axios
       .get("/api/current_user")
       .then(data => data.data)
@@ -77,4 +79,11 @@ class AppRouter extends React.Component {
   }
 }
 
-export default AppRouter;
+const mapStateToProps = state => {
+  return { auth: state.auth };
+};
+
+const mapDispatchToProps = () => {};
+
+export default connect(mapStateToProps)(AppRouter);
+// export default AppRouter;

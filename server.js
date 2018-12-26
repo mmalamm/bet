@@ -1,6 +1,8 @@
 const express = require("express");
 const cookieParser = require("cookie-parser");
 
+const path = require("path");
+
 const helmet = require("helmet");
 const passport = require("passport");
 
@@ -20,6 +22,8 @@ app.use(cookieParser(keys.cookieKey));
 app.use(session);
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use(express.static(path.join(__dirname, "client", "build")));
 
 app.use("/api", authenticate);
 

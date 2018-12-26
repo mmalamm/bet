@@ -41,7 +41,6 @@ module.exports = server => {
         .filter(s => s.id !== socket.id)
         .forEach(skt => {
           log(skt.request.cookie, skt.request.user.username);
-          skt.request.cookie["connect.sid"] = null;
           skt.disconnect();
         });
     }
