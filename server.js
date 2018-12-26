@@ -1,6 +1,8 @@
 const express = require("express");
 const cookieParser = require("cookie-parser");
-// const cookieSession = require("cookie-session");
+
+const path = require("path");
+
 const helmet = require("helmet");
 const passport = require("passport");
 
@@ -10,7 +12,7 @@ const log = require("./config/log")("SERVER", "blue");
 
 const session = require("./session");
 
-const authenticate = require('./middlewares/authenticate');
+const authenticate = require("./middlewares/authenticate");
 
 const app = express();
 app.use(helmet());
@@ -21,6 +23,7 @@ app.use(session);
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use(express.static(path.join(__dirname, "client", "build")));
 
 app.use("/api", authenticate);
 
@@ -29,4 +32,6 @@ require("./services/passport");
 
 require("./routes/authRoutes")(app);
 
-app.listen(5050, () => log("server running on pt 5050"));
+const server = app.listen(5050, () => log("server running on pt 5050"));
+
+require("./services/socketio")(server);
