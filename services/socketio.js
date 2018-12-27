@@ -25,11 +25,14 @@ module.exports = server => {
   );
 
   io.on("connection", socket => {
-    const connectedSocketIds = Object.keys(io.sockets.sockets);
+    const connectedSocketIds = () => Object.keys(io.sockets.sockets);
     const connectedUsernames = () =>
-      connectedSocketIds
-        .map(id => get(io, `sockets.sockets[${id}].request.user.username`))
-        .filter(u => u);
+      connectedSocketIds().map(id =>
+        get(io, `sockets.sockets[${id}].request.user.username`)
+      );
+    log(
+      `user ${socket.request.user.username} has joined with socket ${socket.id}`
+    );
     log(connectedUsernames());
     const userSockets = passportSocketIo.filterSocketsByUser(
       io,
@@ -52,9 +55,10 @@ module.exports = server => {
       socket.emit("updateStatus", `thanks ${socket.request.user.username}`);
     });
     socket.on("disconnecting", e => {
-      ioLog("dc from socket", socket.request.user.username);
+      ioLog(socket.id + " dc from socket:", socket.request.user.username);
     });
     socket.on("disconnect", () => {
+      log(`${socket.id} disconnected`, connectedUsernames());
       io.emit("currentUsers", connectedUsernames());
     });
   });

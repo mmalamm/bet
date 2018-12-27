@@ -86,4 +86,3 @@ const mapStateToProps = state => {
 const mapDispatchToProps = () => {};
 
 export default connect(mapStateToProps)(AppRouter);
-// export default AppRouter;
