@@ -18,9 +18,6 @@ class WelcomeBar extends Component {
         <button>
           <Link to="/dashboard">Dashboard</Link>
         </button>
-        <form action="/auth/logout">
-          <input type="submit" value="Log Out" />
-        </form>
         <button onClick={this.logout}>Log Out</button>
       </div>
     );

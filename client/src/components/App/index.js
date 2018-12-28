@@ -6,12 +6,11 @@ import {
   Switch,
   Redirect
 } from "react-router-dom";
-import axios from "axios";
 
 import Home from "../Home";
 import Dashboard from "../Dashboard";
 
-import { signIn, signOut } from "../../actions/authActions";
+import { signIn, signOut, fetchCurrentUser } from "../../actions/authActions";
 import { LOGGED_IN } from "../../constants";
 
 function NoMatch({ location }) {
@@ -26,17 +25,7 @@ function NoMatch({ location }) {
 
 class AppRouter extends Component {
   componentDidMount() {
-    axios
-      .get("/api/current_user")
-      .then(data => data.data)
-      .then(({ user }) => {
-        console.log(user);
-        if (user) {
-          this.props.signIn(user);
-        } else {
-          this.props.signOut();
-        }
-      });
+    this.props.fetchCurrentUser();
   }
   isLoggedIn = () => this.props.auth.status === LOGGED_IN;
 
@@ -74,6 +63,9 @@ const mapDispatchToProps = dispatch => {
     },
     signOut() {
       dispatch(signOut());
+    },
+    fetchCurrentUser() {
+      dispatch(fetchCurrentUser());
     }
   };
 };
