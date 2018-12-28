@@ -57,10 +57,6 @@ class Game {
   play() {
     if (!this.currentMatch) {
       this.runMatch().then(result => {
-        ///////////
-        window._ms = null;
-        window.ms = null;
-        //////////
         this.processMatch(result);
         this.currentMatch = null;
       });

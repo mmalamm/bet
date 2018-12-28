@@ -2,21 +2,21 @@
   .handPanel {
     display: flex;
     margin-left: 1rem;
-    height: 9rem;
+    // height: 9rem;
   }
 }
 
-@media (orientation: landscape) {
-  .handPanel {
-    height: 12vh;
-  }
-  .playerPanel {
-    height: 50vh;
-  }
-  .playerPanel__turnPanel {
-    height: 12vh;
-  }
-}
+// @media (orientation: landscape) {
+//   .handPanel {
+//     height: 12vh;
+//   }
+//   .playerPanel {
+//     height: 50vh;
+//   }
+//   .playerPanel__turnPanel {
+//     height: 12vh;
+//   }
+// }
 
 @media (max-width: 500px) {
   .handPanel {
