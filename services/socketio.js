@@ -42,10 +42,7 @@ module.exports = server => {
       log("more than 1 instance logged in:", userSockets.length);
       userSockets
         .filter(s => s.id !== socket.id)
-        .forEach(skt => {
-          log(skt.request.cookie, skt.request.user.username);
-          skt.disconnect();
-        });
+        .forEach(skt => skt.disconnect());
     }
     ioLog("user connected to socket:", socket.request.user);
     io.emit("welcome", "hey");
