@@ -1,0 +1,18 @@
+.player-info__icon {
+  height: 2rem;
+  width: 2rem;
+  line-height: 2rem;
+  border-radius: 1rem;
+  font-size: 1rem;
+  font-weight: bolder;
+  text-align: center;
+}
+
+.player-info {
+  // margin: 1rem 0;
+  display: flex;
+}
+
+.player-info__text {
+  text-align: right;
+}

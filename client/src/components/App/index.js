@@ -11,6 +11,7 @@ import "./App.css";
 
 import Home from "../Home";
 import Dashboard from "../Dashboard";
+import BotGame from "../BotGame/botgame";
 
 import { signIn, signOut, fetchCurrentUser } from "../../actions/authActions";
 import { LOGGED_IN } from "../../constants";
@@ -48,6 +49,7 @@ class App extends Component {
                 )
               }
             />
+            <Route path="/bots" component={BotGame} />
             <Route component={NoMatch} />
           </Switch>
         </div>
