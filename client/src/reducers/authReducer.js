@@ -1,25 +1,32 @@
 import initialState from "../initial-state.js";
 
+import { AWAITING_AUTH_RESPONSE, LOGGED_OUT, LOGGED_IN } from "../constants";
+
 export default function authReducer(state = initialState.auth, action) {
   switch (action.type) {
     case "ATTEMPTING_LOGIN":
-      return {status: "AWAITING_AUTH_RESPONSE"};
+      return { status: AWAITING_AUTH_RESPONSE };
+    case "ATTEMPTING_LOGOUT":
+      return {
+        status: AWAITING_AUTH_RESPONSE,
+        username: null,
+        imgUrl: null,
+        points: null
+      };
     case "SIGN_OUT":
-      return {status: "ANONYMOUS", email: null, displayName: null, photoURL: null, uid: null};
+      return {
+        status: LOGGED_OUT,
+        username: null,
+        imgUrl: null,
+        points: null
+      };
     case "SIGN_IN":
       return {
-        status: "SIGNED_IN",
-        displayName: action.payload.displayName,
-        photoURL: action.payload.photoURL,
-        uid: action.payload.uid,
+        status: LOGGED_IN,
         username: action.payload.username,
+        imgUrl: action.payload.imgUrl,
         points: action.payload.points
       };
-    case "UPDATE_PHOTO_URL":
-      return {
-        ...state,
-        photoURL: action.url
-      }
     default:
       return state;
   }

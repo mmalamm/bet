@@ -1,12 +1,14 @@
+import { AWAITING_AUTH_RESPONSE } from "./constants";
+
 const initialState = {
   auth: {
-    status: "AWAITING_AUTH_RESPONSE",
-    displayName: null,
-    photoURL: null,
-    username: null
+    status: AWAITING_AUTH_RESPONSE,
+    username: null,
+    imgUrl: null,
+    points: null
   },
   modal: null,
-  flash: null,
+  flash: null
 };
 
 export default initialState;

@@ -1,81 +1,54 @@
-import React from "react";
-import axios from "axios";
+import React, { Component } from "react";
 import { connect } from "react-redux";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect
+} from "react-router-dom";
 
-import Login from "../Login";
-import Navbar from "../Navbar";
 import Home from "../Home";
-import Registration from "../Registration";
-import io from "socket.io-client";
+import Dashboard from "../Dashboard";
 
-// import renderModal from "./renderModal";
+import { signIn, signOut, fetchCurrentUser } from "../../actions/authActions";
+import { LOGGED_IN } from "../../constants";
 
-import "./App.css";
+function NoMatch({ location }) {
+  return (
+    <div>
+      <h3>
+        No match for <code>{location.pathname}</code>
+      </h3>
+    </div>
+  );
+}
 
-const initialState = {
-  username: null,
-  loggedIn: null
-};
-
-class AppRouter extends React.Component {
-  state = { ...initialState };
+class AppRouter extends Component {
   componentDidMount() {
-    console.log(this.props);
-    axios
-      .get("/api/current_user")
-      .then(data => data.data)
-      .then(username => {
-        const loggedIn = Boolean(username);
-        if (loggedIn) {
-          this.socket = io();
-          this.socket.on("connect", socket =>
-            console.log("connected to socket:", this.socket.id)
-          );
-          this.socket.on("welcome", thing =>
-            console.log("welcomed with thing:", thing)
-          );
-          this.socket.on("disconnect", e => {
-            console.log("disconnected from socket...", e);
-            axios.post("/api/logout").then(e => {
-              console.log(e);
-              this.setState({ loggedIn: false, username: null });
-            });
-          });
-          this.socket.on("updateStatus", d => console.log(d));
-          this.socket.on("currentUsers", d => console.log(d));
-        }
-
-        this.setState({ loggedIn, username });
-      });
+    this.props.fetchCurrentUser();
   }
-  render() {
-    const { loggedIn, username } = this.state;
+  isLoggedIn = () => this.props.auth.status === LOGGED_IN;
 
-    const loggedOutJSX = (
+  render() {
+    return (
       <Router>
-        <div>
-          <Navbar loggedIn={loggedIn} />
+        <Switch>
           <Route path="/" exact component={Home} />
-          <Route path="/login/" component={Login} />
-          <Route path="/register/" component={Registration} />
-        </div>
-      </Router>
-    );
-    const loader = <h1>Loading...</h1>;
-    const loggedInJSX = (
-      <Router>
-        <div>
-          <Navbar loggedIn={loggedIn} />
+          <Route path="/home/" component={Home} />
           <Route
-            path="/"
-            exact
-            render={props => <Home username={username} io={this.socket} />}
+            path="/dashboard/"
+            render={props =>
+              this.isLoggedIn() ? (
+                <Dashboard {...props} />
+              ) : (
+                <Redirect to={"/home"} />
+              )
+            }
           />
-        </div>
+          <Route component={NoMatch} />
+        </Switch>
       </Router>
     );
-    return loggedIn === null ? loader : loggedIn ? loggedInJSX : loggedOutJSX;
   }
 }
 
@@ -83,6 +56,21 @@ const mapStateToProps = state => {
   return { auth: state.auth };
 };
 
-const mapDispatchToProps = () => {};
+const mapDispatchToProps = dispatch => {
+  return {
+    signIn(user) {
+      dispatch(signIn(user));
+    },
+    signOut() {
+      dispatch(signOut());
+    },
+    fetchCurrentUser() {
+      dispatch(fetchCurrentUser());
+    }
+  };
+};
 
-export default connect(mapStateToProps)(AppRouter);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AppRouter);

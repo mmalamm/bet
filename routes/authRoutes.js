@@ -7,10 +7,9 @@ module.exports = app => {
 
   app.post(
     "/auth/local",
-    passport.authenticate("local", { failureRedirect: "/login?r=authFailure" }),
+    passport.authenticate("local", { failureRedirect: "/home?r=authFailure" }),
     (req, res) => {
       log("Loggin in user:", req.user);
-      res.cookie("username", req.user.username);
       res.redirect("/");
     }
   );
@@ -24,15 +23,20 @@ module.exports = app => {
 
   app.get("/api/current_user", (req, res) => {
     if (req.user) {
-      return res.send(req.user.username);
+      const { imgUrl, username, points } = req.user;
+      const output = {
+        imgUrl,
+        username,
+        points
+      };
+      return res.send({ user: output });
     }
-    res.send(null);
+    res.send({ user: null });
   });
 
   app.post("/api/logout", (req, res) => {
     log("Logging out user via API:", req.user);
     req.logout();
-    res.clearCookie("username");
     res.send("logged out");
   });
 };

@@ -1,0 +1,46 @@
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { signOut, logout } from "../../actions/authActions";
+import { Link } from "react-router-dom";
+
+class WelcomeBar extends Component {
+  logout = e => {
+    e.preventDefault();
+    this.props.logout();
+  };
+  render() {
+    const { username, imgUrl, points } = this.props.auth;
+    return (
+      <div>
+        <img src={imgUrl} alt={username} />
+        <h3>{username}</h3>
+        <h6>{points}</h6>
+        <button>
+          <Link to="/dashboard">Dashboard</Link>
+        </button>
+        <button onClick={this.logout}>Log Out</button>
+      </div>
+    );
+  }
+}
+
+const mapStateToProps = state => {
+  return {
+    auth: state.auth
+  };
+};
+const mapDispatchToProps = dispatch => {
+  return {
+    signOut() {
+      dispatch(signOut());
+    },
+    logout() {
+      dispatch(logout());
+    }
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(WelcomeBar);

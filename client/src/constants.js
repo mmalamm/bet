@@ -1,0 +1,8 @@
+export const AWAITING_AUTH_RESPONSE = "AWAITING_AUTH_RESPONSE";
+export const LOGGED_OUT = "LOGGED_OUT";
+export const LOGGED_IN = "LOGGED_IN";
+
+export const ATTEMPTING_LOGIN = "ATTEMPTING_LOGIN";
+export const ATTEMPTING_LOGOUT = "ATTEMPTING_LOGOUT";
+export const SIGN_IN = "SIGN_IN";
+export const SIGN_OUT = "SIGN_OUT";
