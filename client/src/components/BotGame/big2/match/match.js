@@ -1,7 +1,6 @@
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
-import { Observable } from "rxjs/Observable";
-import "rxjs/add/operator/map";
-import "rxjs/add/observable/from";
+import { map } from "rxjs/operators";
+import { from } from "rxjs";
 import isEqual from "lodash/isEqual";
 import { isValidTurn, createTracker, isOver, createEndStatus } from "./lib";
 import { processTurn } from "./createMatch";
@@ -13,9 +12,7 @@ class Match {
     const match = createMatch(players);
     this.processTurn = turn => match.dispatch(processTurn(turn));
     const subject = new BehaviorSubject(match.getState());
-    this.matchStatus$ = Observable.from(match).map(match =>
-      createTracker(match)
-    );
+    this.matchStatus$ = from(match).pipe(map(match => createTracker(match)));
 
     // use subject.complete logic here
     this.matchStatus$.subscribe(d => {
@@ -28,15 +25,10 @@ class Match {
     });
     this.getMatchStatus$ = subject;
 
-    ///// testing purposes only
-    window._ms = () => match.getState();
-    window.ms = () => subject.getValue();
-    /////
-
     players.forEach(p => {
       const cardsSubject = new BehaviorSubject([]);
-      const pCards$ = Observable.from(match).map(
-        d => d.players.find(player => player.name === p.name).cards
+      const pCards$ = from(match).pipe(
+        map(d => d.players.find(player => player.name === p.name).cards)
       );
 
       pCards$.subscribe(c => {

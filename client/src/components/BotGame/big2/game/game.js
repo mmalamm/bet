@@ -1,7 +1,5 @@
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
-import { Observable } from "rxjs/Observable";
-import "rxjs/add/operator/map";
-import "rxjs/add/observable/from";
+import { from } from "rxjs";
 import Player from "../player";
 import Match from "../match/match";
 import AiPlayer from "../ai/ai_player";
@@ -28,16 +26,11 @@ class Game {
     this.processMatch = result => game.dispatch(processMatch(result));
     this.setMatchInProgress = () => game.dispatch(setMatchInProgress());
     const subject = new BehaviorSubject(game.getState());
-    this.gameStatus$ = Observable.from(game);
+    this.gameStatus$ = from(game);
     this.gameStatus$.subscribe(d => {
       subject.next(d);
     });
     this.getGameStatus$ = subject;
-
-    ///// testing purposes only
-    window._gs = () => game.getState();
-    window.gs = () => subject.getValue();
-    /////
   }
 
   runMatch = () => {
