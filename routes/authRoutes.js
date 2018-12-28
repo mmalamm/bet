@@ -24,7 +24,13 @@ module.exports = app => {
 
   app.get("/api/current_user", (req, res) => {
     if (req.user) {
-      return res.send(req.user.username);
+      const { imgUrl, username, points } = req.user;
+      const output = {
+        imgUrl,
+        username,
+        points
+      }
+      return res.send(output);
     }
     res.send(null);
   });
