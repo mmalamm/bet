@@ -12,7 +12,7 @@ class AppRouter extends Component {
     axios
       .get("/api/current_user")
       .then(data => data.data)
-      .then(user => {
+      .then(({ user }) => {
         console.log(user);
         if (user) {
           this.props.signIn(user);

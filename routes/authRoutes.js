@@ -29,10 +29,10 @@ module.exports = app => {
         imgUrl,
         username,
         points
-      }
-      return res.send(output);
+      };
+      return res.send({ user: output });
     }
-    res.send(null);
+    res.send({user: null});
   });
 
   app.post("/api/logout", (req, res) => {
