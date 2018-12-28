@@ -1,0 +1,47 @@
+@media (min-width: 501px) {
+  .handPanel {
+    display: flex;
+    margin-left: 1rem;
+    height: 9rem;
+  }
+}
+
+@media (orientation: landscape) {
+  .handPanel {
+    height: 12vh;
+  }
+  .playerPanel {
+    height: 50vh;
+  }
+  .playerPanel__turnPanel {
+    height: 12vh;
+  }
+}
+
+@media (max-width: 500px) {
+  .handPanel {
+    display: flex;
+    flex-direction: column;
+    grid-row: h 1 / h 5;
+  }
+  .handPanel__cardContainer {
+    margin-left: 10vw;
+    grid-row: 1 / 4;
+    grid-column: 1 / 2;
+  }
+  .playerPanel {
+    grid-column: 1 / 2;
+    grid-row: 1 / 5;
+  }
+  .playerPanel__turnPanel {
+    position: absolute;
+    top: 70vh;
+    left: 40vw;
+  }
+  .playerPanel__playerInfo {
+    position: absolute;
+    height: 10vw;
+    top: 60vh;
+    left: 40vw;
+  }
+}
