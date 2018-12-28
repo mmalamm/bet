@@ -17,7 +17,7 @@ module.exports = async (req, res, next) => {
       "Tried to register new user; would overwrite:",
       existingUserWithUsername
     );
-    return res.redirect("/register?r=usernameTaken");
+    return res.redirect("/home?r=usernameTaken");
   }
 
   new User({
