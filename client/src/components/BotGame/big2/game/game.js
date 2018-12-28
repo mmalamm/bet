@@ -1,5 +1,4 @@
-import { BehaviorSubject } from "rxjs/BehaviorSubject";
-import { from } from "rxjs";
+import { BehaviorSubject, from } from "rxjs";
 import Player from "../player";
 import Match from "../match/match";
 import AiPlayer from "../ai/ai_player";

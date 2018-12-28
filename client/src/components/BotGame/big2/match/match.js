@@ -1,6 +1,5 @@
-import { BehaviorSubject } from "rxjs/BehaviorSubject";
+import { BehaviorSubject, from } from "rxjs";
 import { map } from "rxjs/operators";
-import { from } from "rxjs";
 import isEqual from "lodash/isEqual";
 import { isValidTurn, createTracker, isOver, createEndStatus } from "./lib";
 import { processTurn } from "./createMatch";
