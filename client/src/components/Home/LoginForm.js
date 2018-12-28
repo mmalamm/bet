@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 
 const forms = {
   login: (
@@ -45,7 +45,7 @@ class LoginForm extends Component {
   render() {
     const { formType } = this.state;
     return (
-      <div>
+      <Fragment>
         {forms[formType]}
         {formType === "login" ? (
           <p>
@@ -57,7 +57,7 @@ class LoginForm extends Component {
             Already Registered? <span onClick={this.toggleFormType}>Login</span>
           </p>
         )}
-      </div>
+      </Fragment>
     );
   }
 }

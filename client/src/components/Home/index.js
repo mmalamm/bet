@@ -7,7 +7,7 @@ import { AWAITING_AUTH_RESPONSE, LOGGED_OUT, LOGGED_IN } from "../../constants";
 import Logo from "../Logo";
 import LoginForm from "./LoginForm";
 import WelcomeBar from "./WelcomeBar";
-const Loading = () => <h1>Loading...</h1>;
+import Loading from "../Loading";
 
 const homePanels = {
   [AWAITING_AUTH_RESPONSE]: <Loading />,
@@ -21,12 +21,14 @@ class Home extends Component {
   }
   renderHomePanel = () => {
     const authStatus = this.props.auth.status;
-    return homePanels[authStatus] || null;
+    return (
+      <div className="App-homePanel">{homePanels[authStatus] || null}</div>
+    );
   };
   render() {
     return (
-      <div>
-        <Logo height={"150px"} />
+      <div className="App">
+        <Logo className="App-logo" height={"150px"} />
         {this.renderHomePanel()}
       </div>
     );

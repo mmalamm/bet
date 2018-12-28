@@ -1,8 +1,27 @@
-export const AWAITING_AUTH_RESPONSE = "AWAITING_AUTH_RESPONSE";
-export const LOGGED_OUT = "LOGGED_OUT";
-export const LOGGED_IN = "LOGGED_IN";
+const createMap = arr =>
+  arr.reduce((a, s) => {
+    a[s] = s;
+    return a;
+  }, {});
 
-export const ATTEMPTING_LOGIN = "ATTEMPTING_LOGIN";
-export const ATTEMPTING_LOGOUT = "ATTEMPTING_LOGOUT";
-export const SIGN_IN = "SIGN_IN";
-export const SIGN_OUT = "SIGN_OUT";
+const CONSTANTS = [
+  "AWAITING_AUTH_RESPONSE",
+  "LOGGED_OUT",
+  "LOGGED_IN",
+  "ATTEMPTING_LOGIN",
+  "ATTEMPTING_LOGOUT",
+  "SIGN_IN",
+  "SIGN_OUT"
+];
+
+const o = createMap(CONSTANTS);
+
+export const {
+  AWAITING_AUTH_RESPONSE,
+  LOGGED_OUT,
+  LOGGED_IN,
+  ATTEMPTING_LOGIN,
+  ATTEMPTING_LOGOUT,
+  SIGN_IN,
+  SIGN_OUT
+} = o;

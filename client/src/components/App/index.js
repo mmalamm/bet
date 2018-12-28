@@ -7,6 +7,8 @@ import {
   Redirect
 } from "react-router-dom";
 
+import "./App.css";
+
 import Home from "../Home";
 import Dashboard from "../Dashboard";
 
@@ -23,7 +25,7 @@ function NoMatch({ location }) {
   );
 }
 
-class AppRouter extends Component {
+class App extends Component {
   componentDidMount() {
     this.props.fetchCurrentUser();
   }
@@ -32,21 +34,23 @@ class AppRouter extends Component {
   render() {
     return (
       <Router>
-        <Switch>
-          <Route path="/" exact component={Home} />
-          <Route path="/home/" component={Home} />
-          <Route
-            path="/dashboard/"
-            render={props =>
-              this.isLoggedIn() ? (
-                <Dashboard {...props} />
-              ) : (
-                <Redirect to={"/home"} />
-              )
-            }
-          />
-          <Route component={NoMatch} />
-        </Switch>
+        <div className="App">
+          <Switch>
+            <Route path="/" exact component={Home} />
+            <Route path="/home/" component={Home} />
+            <Route
+              path="/dashboard/"
+              render={props =>
+                this.isLoggedIn() ? (
+                  <Dashboard {...props} />
+                ) : (
+                  <Redirect to={"/home"} />
+                )
+              }
+            />
+            <Route component={NoMatch} />
+          </Switch>
+        </div>
       </Router>
     );
   }
@@ -73,4 +77,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(AppRouter);
+)(App);
