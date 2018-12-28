@@ -5,9 +5,9 @@ export default class Dashboard extends Component {
   render() {
     return (
       <div>
-        <button>
-          <Link to="/home">Home</Link>
-        </button>
+        <Link to="/home">
+          <button>Home</button>
+        </Link>
         <div>Dashboard!!!</div>
       </div>
     );

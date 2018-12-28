@@ -3,7 +3,6 @@ const LocalStrategy = require("passport-local").Strategy;
 const mongoose = require("mongoose");
 
 const bcrypt = require("bcrypt");
-// const saltRounds = 2;
 const log = require("../config/log")("PASSPORT", "magenta");
 
 const User = mongoose.model("users");

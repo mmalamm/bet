@@ -35,8 +35,14 @@ module.exports = app => {
   });
 
   app.post("/api/logout", (req, res) => {
-    log("Logging out user via API:", req.user);
-    req.logout();
-    res.send("logged out");
+    if (req.user) {
+      log("Logging out user via API:", req.user);
+      req.logout();
+      res.send("logged out");
+    } else {
+      res
+        .status(400)
+        .send("No user is logged in, so there is nothing to logout");
+    }
   });
 };

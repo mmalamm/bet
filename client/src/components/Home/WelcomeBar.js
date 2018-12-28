@@ -15,9 +15,9 @@ class WelcomeBar extends Component {
         <img src={imgUrl} alt={username} />
         <h3>{username}</h3>
         <h6>{points}</h6>
-        <button>
-          <Link to="/dashboard">Dashboard</Link>
-        </button>
+        <Link to="/dashboard">
+          <button>Dashboard</button>
+        </Link>
         <button onClick={this.logout}>Log Out</button>
       </div>
     );
