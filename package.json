@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "seedDb": "node cli/seedDb.js",
     "start": "node server.js",
     "server": "nodemon server.js",
     "client": "npm run start --prefix client",
@@ -14,7 +15,7 @@
   "dependencies": {
     "bcrypt": "^3.0.2",
     "chalk": "^2.4.1",
-    "connect-mongo": "^2.0.1",
+    "connect-mongo": "^2.0.3",
     "cookie-parser": "^1.4.3",
     "express": "^4.16.4",
     "express-session": "^1.15.6",

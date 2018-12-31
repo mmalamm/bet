@@ -10,26 +10,29 @@ import WelcomeBar from "./WelcomeBar";
 import Loading from "../Loading";
 
 const homePanels = {
-  [AWAITING_AUTH_RESPONSE]: <Loading />,
-  [LOGGED_OUT]: <LoginForm />,
-  [LOGGED_IN]: <WelcomeBar />
+  [AWAITING_AUTH_RESPONSE]: props => <Loading {...props} />,
+  [LOGGED_OUT]: props => <LoginForm {...props} />,
+  [LOGGED_IN]: props => <WelcomeBar {...props} />
 };
 
 class Home extends Component {
   componentDidMount() {
     console.log(qS.parse(this.props.location.search));
   }
-  renderHomePanel = () => {
+  renderHomePanel = panelProps => {
     const authStatus = this.props.auth.status;
     return (
-      <div className="App-homePanel">{homePanels[authStatus] || null}</div>
+      <div className="App-homePanel">
+        {homePanels[authStatus](panelProps) || null}
+      </div>
     );
   };
   render() {
+    const queryParams = qS.parse(this.props.location.search);
     return (
       <div className="App">
         <Logo className="App-logo" height={"150px"} />
-        {this.renderHomePanel()}
+        {this.renderHomePanel(queryParams)}
       </div>
     );
   }

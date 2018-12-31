@@ -10,6 +10,11 @@ module.exports = async (req, res, next) => {
 
   const hash = await bcrypt.hash(password, saltRounds);
 
+  if (password.length < 3) {
+    log("Password is way too short");
+    return res.redirect("/home?r=passwordTooShort&c=register");
+  }
+
   const existingUserWithUsername = await User.findOne({ username });
 
   if (existingUserWithUsername) {
@@ -17,7 +22,7 @@ module.exports = async (req, res, next) => {
       "Tried to register new user; would overwrite:",
       existingUserWithUsername
     );
-    return res.redirect("/home?r=usernameTaken");
+    return res.redirect("/home?r=usernameTaken&c=register");
   }
 
   new User({

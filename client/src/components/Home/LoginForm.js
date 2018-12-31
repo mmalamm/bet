@@ -1,41 +1,8 @@
 import React, { Component, Fragment } from "react";
 
-const forms = {
-  login: (
-    <form action="/auth/local" method="post">
-      <h1>Login</h1>
-      <div>
-        <label>Username:</label> <input type="text" name="username" />
-        <br />
-      </div>
-      <div>
-        <label>Password:</label> <input type="password" name="password" />
-      </div>
-      <div>
-        <input type="submit" value="Submit" />
-      </div>
-    </form>
-  ),
-  register: (
-    <form action="/auth/register" method="post">
-      <h1>Register</h1>
-      <div>
-        <label>Username:</label> <input type="text" name="username" />
-        <br />
-      </div>
-      <div>
-        <label>Password:</label> <input type="password" name="password" />
-      </div>
-      <div>
-        <input type="submit" value="Submit" />
-      </div>
-    </form>
-  )
-};
-
 class LoginForm extends Component {
   state = {
-    formType: "login"
+    formType: this.props.c || "login"
   };
   toggleFormType = () => {
     this.setState(oldState => ({
@@ -44,19 +11,33 @@ class LoginForm extends Component {
   };
   render() {
     const { formType } = this.state;
+    const isLoginForm = formType === "login";
     return (
       <Fragment>
-        {forms[formType]}
-        {formType === "login" ? (
-          <p>
-            Don't have an account?{" "}
-            <span onClick={this.toggleFormType}>Register</span>
-          </p>
-        ) : (
-          <p>
-            Already Registered? <span onClick={this.toggleFormType}>Login</span>
-          </p>
-        )}
+        {
+          <form
+            action={isLoginForm ? "/auth/local" : "/auth/register"}
+            method="post"
+          >
+            <h1>{isLoginForm ? "Login" : "Register"}</h1>
+            <div>
+              <label>Username:</label> <input type="text" name="username" />
+              <br />
+            </div>
+            <div>
+              <label>Password:</label> <input type="password" name="password" />
+            </div>
+            <div>
+              <input type="submit" value="Submit" />
+            </div>
+          </form>
+        }
+        <p>
+          {isLoginForm ? "Don't have an account? " : "Already Registered? "}
+          <span onClick={this.toggleFormType}>
+            {isLoginForm ? "Register" : "Log In"}
+          </span>
+        </p>
       </Fragment>
     );
   }
