@@ -10,9 +10,9 @@ import WelcomeBar from "./WelcomeBar";
 import Loading from "../Loading";
 
 const homePanels = {
-  [AWAITING_AUTH_RESPONSE]: props => <Loading {...props} />,
-  [LOGGED_OUT]: props => <LoginForm {...props} />,
-  [LOGGED_IN]: props => <WelcomeBar {...props} />
+  [AWAITING_AUTH_RESPONSE]: Loading,
+  [LOGGED_OUT]: LoginForm,
+  [LOGGED_IN]: WelcomeBar
 };
 
 class Home extends Component {
@@ -20,10 +20,10 @@ class Home extends Component {
     console.log(qS.parse(this.props.location.search));
   }
   renderHomePanel = panelProps => {
-    const authStatus = this.props.auth.status;
+    const Panel = homePanels[this.props.auth.status];
     return (
       <div className="App-homePanel">
-        {homePanels[authStatus](panelProps) || null}
+        <Panel {...panelProps} />
       </div>
     );
   };
@@ -38,10 +38,6 @@ class Home extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    auth: state.auth
-  };
-};
+const mapStateToProps = ({ auth }) => ({ auth });
 
 export default connect(mapStateToProps)(Home);
