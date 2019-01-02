@@ -10,21 +10,21 @@ export default function authReducer(state = initialState.auth, action) {
       return {
         status: AWAITING_AUTH_RESPONSE,
         username: null,
-        imgUrl: null,
+        icon: null,
         points: null
       };
     case "SIGN_OUT":
       return {
         status: LOGGED_OUT,
         username: null,
-        imgUrl: null,
+        icon: null,
         points: null
       };
     case "SIGN_IN":
       return {
         status: LOGGED_IN,
         username: action.payload.username,
-        imgUrl: action.payload.imgUrl,
+        icon: action.payload.icon,
         points: action.payload.points
       };
     default:

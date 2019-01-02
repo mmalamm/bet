@@ -28,8 +28,7 @@ module.exports = async (req, res, next) => {
   new User({
     username,
     passwordHash: hash,
-    imgUrl:
-      "https://lh3.googleusercontent.com/VT-PqxMMsA2wPy7kzmuKGDIzaA3AGuXKExqnfOfwTEy5AvLIMTranbfNGheRr457RD4=s180-rw",
+    icon: "apple",
     points: 250
   })
     .save()

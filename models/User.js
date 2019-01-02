@@ -4,7 +4,7 @@ const { Schema } = mongoose;
 const userSchema = new Schema({
   username: String,
   passwordHash: String,
-  imgUrl: String,
+  icon: String,
   points: Number
 });
 userSchema.index({ username: 1 }, { unique: true });

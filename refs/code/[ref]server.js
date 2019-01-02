@@ -20,7 +20,7 @@ const { Schema } = mongoose;
 const userSchema = new Schema({
   username: String,
   password: String,
-  imgUrl: String,
+  icon: String,
   points: Number
 });
 
@@ -48,8 +48,7 @@ passport.use(
         new User({
           username,
           password,
-          imgUrl:
-            "https://lh3.googleusercontent.com/VT-PqxMMsA2wPy7kzmuKGDIzaA3AGuXKExqnfOfwTEy5AvLIMTranbfNGheRr457RD4=s180-rw"
+          icon: "apple"
         })
           .save()
           .then(user => done(null, user));

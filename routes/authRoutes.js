@@ -23,9 +23,9 @@ module.exports = app => {
 
   app.get("/api/current_user", (req, res) => {
     if (req.user) {
-      const { imgUrl, username, points } = req.user;
+      const { icon, username, points } = req.user;
       const output = {
-        imgUrl,
+        icon,
         username,
         points
       };

@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "seedDb": "node cli/seedDb.js",
+    "seedDb": "node scripts/seedDb.js",
     "start": "node server.js",
     "server": "nodemon server.js",
     "client": "npm run start --prefix client",

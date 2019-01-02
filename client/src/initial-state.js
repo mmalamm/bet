@@ -4,7 +4,7 @@ const initialState = {
   auth: {
     status: AWAITING_AUTH_RESPONSE,
     username: null,
-    imgUrl: null,
+    icon: null,
     points: null
   },
   modal: null,

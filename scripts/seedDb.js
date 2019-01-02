@@ -12,17 +12,40 @@ const sampleUsers = [
   ["bu", "nelly"]
 ];
 
+const icons = [
+  "apple",
+  "bananas",
+  "carrot",
+  "chili-pepper",
+  "chocolate",
+  "coffee-cup",
+  "corn",
+  "croissant",
+  "donut",
+  "eggplant",
+  "french-fries",
+  "hamburger",
+  "ice-cream",
+  "milkshake",
+  "pizza",
+  "popsicle",
+  "strawberry",
+  "taco",
+  "watermelon",
+  "cherry"
+];
+
 const promises = sampleUsers
   .map(u => {
     return { username: u[0], password: u[1] };
   })
   .map(async ({ username, password }) => {
     const hash = await bcrypt.hash(password, saltRounds);
+    const randomIconIdx = Math.floor(Math.random() * icons.length)
     return new User({
       username,
       passwordHash: hash,
-      imgUrl:
-        "https://lh3.googleusercontent.com/VT-PqxMMsA2wPy7kzmuKGDIzaA3AGuXKExqnfOfwTEy5AvLIMTranbfNGheRr457RD4=s180-rw",
+      icon: icons[randomIconIdx],
       points: 250
     }).save();
   });
