@@ -4,6 +4,8 @@ import qS from "query-string";
 
 import { AWAITING_AUTH_RESPONSE, LOGGED_OUT, LOGGED_IN } from "../../constants";
 
+import "./Home.scss";
+
 import Logo from "../Logo";
 import LoginForm from "./LoginForm";
 import WelcomeBar from "./WelcomeBar";
@@ -22,7 +24,7 @@ class Home extends Component {
   renderHomePanel = panelProps => {
     const Panel = homePanels[this.props.auth.status];
     return (
-      <div className="App-homePanel">
+      <div className="Home-homePanel">
         <Panel {...panelProps} />
       </div>
     );
@@ -30,8 +32,8 @@ class Home extends Component {
   render() {
     const queryParams = qS.parse(this.props.location.search);
     return (
-      <div className="App">
-        <Logo className="App-logo" height={"150px"} />
+      <div className="Home">
+        <Logo className="Home-logo" height={"150px"} />
         {this.renderHomePanel(queryParams)}
       </div>
     );

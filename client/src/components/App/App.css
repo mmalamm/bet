@@ -1,16 +1,1 @@
-.App {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
 
-.App-logo {
-  background-color: gray;
-}
-
-.App-homePanel {
-  background-color: blue;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
