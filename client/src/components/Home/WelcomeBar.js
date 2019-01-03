@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { logout } from "../../actions/authActions";
-import { Link } from "react-router-dom";
+
 import icons from "../../assets/icons";
+import { logout } from "../../actions/authActions";
+import LinkButton from "../common/LinkButton";
 
 class WelcomeBar extends Component {
   logout = e => {
@@ -21,31 +22,21 @@ class WelcomeBar extends Component {
   };
   render() {
     return (
-      <div className="Home_WelcomeBar">
+      <div className="Home-WelcomeBar">
         {this.renderUserInfo()}
-        <Link className="WelcomeBar_dashboardButton" to="/dashboard">
-          <button>Dashboard</button>
-        </Link>
-        <div className="WelcomeBar_logoutButton">
-          <button onClick={this.logout}>Log Out</button>
-        </div>
+        <LinkButton to="/dashboard">Dashboard</LinkButton>
+        <button onClick={this.logout}>Log Out</button>
       </div>
     );
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    auth: state.auth
-  };
-};
-const mapDispatchToProps = dispatch => {
-  return {
-    logout() {
-      dispatch(logout());
-    }
-  };
-};
+const mapStateToProps = ({ auth }) => ({ auth });
+const mapDispatchToProps = dispatch => ({
+  logout() {
+    dispatch(logout());
+  }
+});
 
 export default connect(
   mapStateToProps,
