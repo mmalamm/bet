@@ -7,9 +7,9 @@ import { AWAITING_AUTH_RESPONSE, LOGGED_OUT, LOGGED_IN } from "../../constants";
 import "./Home.scss";
 
 import Logo from "../Logo";
+import Loading from "../Loading";
 import LoginForm from "./LoginForm";
 import WelcomeBar from "./WelcomeBar";
-import Loading from "../Loading";
 
 const homePanels = {
   [AWAITING_AUTH_RESPONSE]: Loading,
@@ -24,7 +24,7 @@ class Home extends Component {
   renderHomePanel = panelProps => {
     const Panel = homePanels[this.props.auth.status];
     return (
-      <div className="Home-homePanel">
+      <div className="Home_homePanel">
         <Panel {...panelProps} />
       </div>
     );
@@ -33,7 +33,7 @@ class Home extends Component {
     const queryParams = qS.parse(this.props.location.search);
     return (
       <div className="Home">
-        <Logo className="Home-logo" height={"150px"} />
+        <Logo className="Home_logo" height={"150px"} />
         {this.renderHomePanel(queryParams)}
       </div>
     );

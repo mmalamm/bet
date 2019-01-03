@@ -1,24 +1,34 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { signOut, logout } from "../../actions/authActions";
+import { logout } from "../../actions/authActions";
 import { Link } from "react-router-dom";
+import icons from "../../assets/icons";
 
 class WelcomeBar extends Component {
   logout = e => {
     e.preventDefault();
     this.props.logout();
   };
-  render() {
-    const { username, imgUrl, points } = this.props.auth;
+  renderUserInfo = () => {
+    const { username, icon, points } = this.props.auth;
     return (
-      <div className='Home-WelcomeBar'>
-        <img src={imgUrl} alt={username} />
-        <h3>{username}</h3>
-        <h6>{points}</h6>
-        <Link to="/dashboard">
+      <div>
+        <img className="WelcomBar_icon" src={icons[icon]} alt={username} />
+        <h3 className="WelcomeBar_username">{username}</h3>
+        <h6 className="WelcomeBar_points">{points}</h6>
+      </div>
+    );
+  };
+  render() {
+    return (
+      <div className="Home_WelcomeBar">
+        {this.renderUserInfo()}
+        <Link className="WelcomeBar_dashboardButton" to="/dashboard">
           <button>Dashboard</button>
         </Link>
-        <button onClick={this.logout}>Log Out</button>
+        <div className="WelcomeBar_logoutButton">
+          <button onClick={this.logout}>Log Out</button>
+        </div>
       </div>
     );
   }
@@ -31,9 +41,6 @@ const mapStateToProps = state => {
 };
 const mapDispatchToProps = dispatch => {
   return {
-    signOut() {
-      dispatch(signOut());
-    },
     logout() {
       dispatch(logout());
     }
