@@ -1,9 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import icons from "../../assets/icons";
 import { logout } from "../../actions/authActions";
 import LinkButton from "../common/LinkButton";
+import UserIcon from "../common/UserIcon";
+
+import styles from './Home.module.scss';
+
+console.log(styles);
 
 class WelcomeBar extends Component {
   logout = e => {
@@ -11,10 +15,10 @@ class WelcomeBar extends Component {
     this.props.logout();
   };
   renderUserInfo = () => {
-    const { username, icon, points } = this.props.auth;
+    const { username, points } = this.props.auth;
     return (
-      <div>
-        <img className="WelcomBar_icon" src={icons[icon]} alt={username} />
+      <div className="WelcomeBar_userInfo">
+        <UserIcon className="" />
         <h3 className="WelcomeBar_username">{username}</h3>
         <h6 className="WelcomeBar_points">{points}</h6>
       </div>

@@ -10,6 +10,7 @@
 
 .Home_homePanel {
   background-color: blue;
+  height: 120px;
 }
 
 .Home_WelcomeBar {
@@ -18,16 +19,10 @@
   grid-template-columns: 5rem 1fr;
 }
 
-.WelcomBar_icon {
-  height: 4rem;
-  width: 4rem;
-  grid-row: 1 / 3;
-}
-
-.WelcomeBar_dashboardButton {
-
-}
-
-.WelcomeBar_LogoutButton {
-  
+.WelcomeBar_userInfo {
+  width: 250px;
+  background-color: red;
+  display: grid;
+  grid-template-columns: 5rem 1fr;
+  grid-template-rows: repeat(2, 35px);
 }
