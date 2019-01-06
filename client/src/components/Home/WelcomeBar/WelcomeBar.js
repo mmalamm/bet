@@ -1,13 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import { logout } from "../../actions/authActions";
-import LinkButton from "../common/LinkButton";
-import UserIcon from "../common/UserIcon";
+import { logout } from "../../../actions/authActions";
+import LinkButton from "../../common/LinkButton";
+import UserIcon from "../../common/UserIcon/UserIcon";
 
-import styles from './Home.module.scss';
-
-console.log(styles);
+import s from './WelcomeBar.module.scss';
 
 class WelcomeBar extends Component {
   logout = e => {
@@ -26,7 +24,7 @@ class WelcomeBar extends Component {
   };
   render() {
     return (
-      <div className="Home-WelcomeBar">
+      <div className={s.WelcomeBar}>
         {this.renderUserInfo()}
         <LinkButton to="/dashboard">Dashboard</LinkButton>
         <button onClick={this.logout}>Log Out</button>

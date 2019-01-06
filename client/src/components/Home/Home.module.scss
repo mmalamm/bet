@@ -2,27 +2,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  border: 1px solid yellow;
+  margin: 1rem;
+  padding: 1rem;
 }
 
-.Home_logo {
+.Logo {
   background-color: gray;
-}
-
-.Home_homePanel {
-  background-color: blue;
-  height: 120px;
-}
-
-.Home_WelcomeBar {
-  display: grid;
-  grid-template-rows: repeat(3, 1fr);
-  grid-template-columns: 5rem 1fr;
-}
-
-.WelcomeBar_userInfo {
-  width: 250px;
-  background-color: red;
-  display: grid;
-  grid-template-columns: 5rem 1fr;
-  grid-template-rows: repeat(2, 35px);
 }

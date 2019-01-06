@@ -7,13 +7,13 @@ import {
   Redirect
 } from "react-router-dom";
 
-import "./App.css";
+import s from "./App.module.scss";
 
-import Home from "../Home";
+import Home from "../Home/Home";
 import Dashboard from "../Dashboard";
 import BotGame from "../BotGame/botgame";
 
-import { signIn, signOut, fetchCurrentUser } from "../../actions/authActions";
+import { fetchCurrentUser } from "../../actions/authActions";
 import { LOGGED_IN } from "../../constants";
 
 function NoMatch({ location }) {
@@ -35,7 +35,7 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <div className="App">
+        <div className={s.App}>
           <Switch>
             <Route path="/" exact component={Home} />
             <Route path="/home/" component={Home} />
@@ -58,18 +58,10 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return { auth: state.auth };
-};
+const mapStateToProps = ({ auth }) => ({ auth });
 
 const mapDispatchToProps = dispatch => {
   return {
-    signIn(user) {
-      dispatch(signIn(user));
-    },
-    signOut() {
-      dispatch(signOut());
-    },
     fetchCurrentUser() {
       dispatch(fetchCurrentUser());
     }
