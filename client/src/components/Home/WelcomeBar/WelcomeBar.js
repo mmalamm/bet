@@ -5,7 +5,8 @@ import { logout } from "../../../actions/authActions";
 import LinkButton from "../../common/LinkButton";
 import UserIcon from "../../common/UserIcon/UserIcon";
 
-import s from './WelcomeBar.module.scss';
+import s from "./WelcomeBar.module.scss";
+import uS from "./UserInfo.module.scss";
 
 class WelcomeBar extends Component {
   logout = e => {
@@ -15,10 +16,10 @@ class WelcomeBar extends Component {
   renderUserInfo = () => {
     const { username, points } = this.props.auth;
     return (
-      <div className="WelcomeBar_userInfo">
-        <UserIcon className="" />
-        <h3 className="WelcomeBar_username">{username}</h3>
-        <h6 className="WelcomeBar_points">{points}</h6>
+      <div className={uS.userInfo}>
+        <UserIcon className={uS.userIcon} />
+        <div className={uS.username}>{username}</div>
+        <div className={uS.points}>{points}</div>
       </div>
     );
   };
@@ -26,8 +27,12 @@ class WelcomeBar extends Component {
     return (
       <div className={s.WelcomeBar}>
         {this.renderUserInfo()}
-        <LinkButton to="/dashboard">Dashboard</LinkButton>
-        <button onClick={this.logout}>Log Out</button>
+        <LinkButton to="/dashboard" className={[s.btn, s.dashboardBtn].join(' ')}>
+          Dashboard
+        </LinkButton>
+        <button className={s.logoutBtn} onClick={this.logout}>
+          Log Out
+        </button>
       </div>
     );
   }

@@ -10,6 +10,11 @@ body {
   color: #eeeeee;
 }
 
+* {
+  box-sizing: border-box;
+  --slate: #708090;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;

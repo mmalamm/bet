@@ -8,5 +8,11 @@
 }
 
 .Logo {
-  background-color: gray;
+  background-color: var(--slate);
+}
+
+.homePanel {
+  width: 250px;
+  height: 200px;
+  background-color: blue;
 }

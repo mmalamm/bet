@@ -24,7 +24,7 @@ class Home extends Component {
   renderHomePanel = panelProps => {
     const Panel = homePanels[this.props.auth.status];
     return (
-      <div className={s.Home_homePanel}>
+      <div className={s.homePanel}>
         <Panel {...panelProps} />
       </div>
     );

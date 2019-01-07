@@ -8,11 +8,16 @@ const saltRounds = 2;
 module.exports = async (req, res, next) => {
   const { username, password } = req.body;
 
+  if (password.length < 3) {
+    log("Password too short");
+    return res.redirect("/home?r=passwordTooShort&c=register");
+  }
+
   const hash = await bcrypt.hash(password, saltRounds);
 
-  if (password.length < 3) {
-    log("Password is way too short");
-    return res.redirect("/home?r=passwordTooShort&c=register");
+  if (username.length > 10 || username.match(/\W/g)) {
+    log("Username invalid");
+    return res.redirect("/home?r=invalidUsername&c=register");
   }
 
   const existingUserWithUsername = await User.findOne({ username });
