@@ -4,36 +4,21 @@ const saltRounds = 2;
 const log = require("../config/log")("SEEDER", "bgYellow");
 const db = require("../services/mongoose");
 const User = require("../models/User");
+const fs = require("fs");
 
 const sampleUsers = [
   ["billy", "bob"],
   ["gw", "bush"],
   ["hey", "world"],
-  ["bu", "nelly"]
+  ["bu", "nelly"],
+  ['alvin', 'chun'],
+  
 ];
 
-const icons = [
-  "apple",
-  "bananas",
-  "carrot",
-  "chili-pepper",
-  "chocolate",
-  "coffee-cup",
-  "corn",
-  "croissant",
-  "donut",
-  "eggplant",
-  "french-fries",
-  "hamburger",
-  "ice-cream",
-  "milkshake",
-  "pizza",
-  "popsicle",
-  "strawberry",
-  "taco",
-  "watermelon",
-  "cherry"
-];
+const icons = fs
+  .readdirSync("./frontend/src/assets")
+  .map(filename => filename.replace(".png", ""))
+  .filter(str => !str.includes("."));
 
 const promises = sampleUsers
   .map(u => {
@@ -41,7 +26,7 @@ const promises = sampleUsers
   })
   .map(async ({ username, password }) => {
     const hash = await bcrypt.hash(password, saltRounds);
-    const randomIconIdx = Math.floor(Math.random() * icons.length)
+    const randomIconIdx = Math.floor(Math.random() * icons.length);
     return new User({
       username,
       passwordHash: hash,
@@ -52,7 +37,7 @@ const promises = sampleUsers
 
 log(promises);
 
-User.deleteMany({}).then(() => {
+db.dropDatabase().then(() => {
   Promise.all(promises).then(users => {
     log("following users seeded:", users.map(u => u.username));
     db.close();

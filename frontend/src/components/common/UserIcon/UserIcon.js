@@ -1,4 +1,4 @@
-import icons from "../../assets/icons";
+import icons from "../../../assets/icons";
 import React, { Component } from "react";
 import { connect } from "react-redux";
 

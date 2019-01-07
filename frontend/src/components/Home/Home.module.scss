@@ -1,0 +1,21 @@
+.Home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--slate);
+  margin: 1rem;
+  border-radius: 1rem;
+  padding: 1rem;
+}
+
+.homePanel {
+  width: 250px;
+}
+
+.Heading {
+  margin: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2rem;
+  font-weight: bold;
+  user-select: none;
+}
