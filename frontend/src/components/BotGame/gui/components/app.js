@@ -43,7 +43,7 @@ class App extends React.Component {
     return showStartScreen ? (
       <StartScreen playMatch={this.playMatch} />
     ) : showMatchScreen ? (
-      <div className="grd">
+      <div className="grd bots">
         <OpponentsPanel
           score={this.state.score}
           player={p}

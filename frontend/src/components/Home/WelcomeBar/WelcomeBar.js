@@ -6,31 +6,32 @@ import LinkButton from "../../common/LinkButton";
 import UserIcon from "../../common/UserIcon/UserIcon";
 
 import s from "./WelcomeBar.module.scss";
-import uS from "./UserInfo.module.scss";
 
+/// refactor with grid
 class WelcomeBar extends Component {
   logout = e => {
     e.preventDefault();
     this.props.logout();
   };
-  renderUserInfo = () => {
+  render() {
     const { username, points } = this.props.auth;
     return (
-      <div className={uS.userInfo}>
-        <UserIcon className={uS.userIcon} />
-        <div className={uS.username}>{username}</div>
-        <div className={uS.points}>{points}</div>
-      </div>
-    );
-  };
-  render() {
-    return (
       <div className={s.WelcomeBar}>
-        {this.renderUserInfo()}
-        <LinkButton to="/dashboard" className={[s.btn, s.dashboardBtn].join(' ')}>
+        <h3 className={s.heading}>Logged In:</h3>
+        <UserIcon className={s.userIcon} />
+        <div className={s.userInfo}>
+          {username} <span className={s.points}>({points})</span>
+        </div>
+        <LinkButton
+          to="/dashboard"
+          className={[s.btn, s.dashboardBtn].join(" ")}
+        >
           Dashboard
         </LinkButton>
-        <button className={s.logoutBtn} onClick={this.logout}>
+        <button
+          className={[s.btn, s.logoutBtn].join(" ")}
+          onClick={this.logout}
+        >
           Log Out
         </button>
       </div>

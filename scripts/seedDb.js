@@ -16,7 +16,7 @@ const sampleUsers = [
 ];
 
 const icons = fs
-  .readdirSync("./client/src/assets")
+  .readdirSync("./frontend/src/assets")
   .map(filename => filename.replace(".png", ""))
   .filter(str => !str.includes("."));
 

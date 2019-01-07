@@ -6,7 +6,8 @@ import { AWAITING_AUTH_RESPONSE, LOGGED_OUT, LOGGED_IN } from "../../constants";
 
 import s from "./Home.module.scss";
 
-import Logo from "../Logo/Logo";
+import AnimatedLogo from "../Logo/AnimatedLogo";
+
 import Loading from "../Loading/Loading";
 import LoginForm from "./LoginForm";
 import WelcomeBar from "./WelcomeBar/WelcomeBar";
@@ -33,7 +34,8 @@ class Home extends Component {
     const queryParams = qS.parse(this.props.location.search);
     return (
       <div className={s.Home}>
-        <Logo className={s.Logo} height={"150px"} />
+        <AnimatedLogo className={s.Logo} height={"150px"} />
+        <h2 className={s.Heading}>锄大地 DEUCES</h2>
         {this.renderHomePanel(queryParams)}
       </div>
     );

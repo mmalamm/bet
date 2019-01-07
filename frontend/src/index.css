@@ -1,0 +1,21 @@
+* {
+  box-sizing: border-box;
+  --slate: #708090;
+  --off-black: #050505;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  --bitter: "Bitter", sans-serif;
+  font-family: var(--bitter);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--off-black);
+}
+
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}

@@ -1,0 +1,42 @@
+.WelcomeBar {
+  display: grid;
+  grid-template-areas: 
+    "a a a a a"
+    "b b c c c"
+    "b b e e f"
+}
+
+.heading {
+  grid-area: a;
+  justify-self: center;
+  letter-spacing: .2rem;
+  text-transform: uppercase;
+  margin: 0 0 1rem 0;
+}
+
+.userIcon {
+  grid-area: b;
+  justify-self: center;
+  align-self: center;
+}
+
+.userInfo {
+  grid-area: c;
+  font-weight: bolder;
+  letter-spacing: .1rem;
+  justify-self: center;
+  font-size: 1.5rem;
+}
+
+.points {
+  letter-spacing: 0;
+  font-size: .75rem;
+}
+
+.dashboardBtn {
+  grid-area: e
+}
+
+.logoutBtn {
+  grid-area: f
+}

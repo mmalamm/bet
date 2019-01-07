@@ -1,0 +1,57 @@
+@keyframes offset {
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes fill-it {
+  100% {
+    fill: black;
+    stroke-width: 8;
+  }
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.logo {
+  fill: transparent;
+}
+
+.logo {
+  stroke: black;
+  stroke-width: 16;
+  animation: offset 1s linear forwards, fill-it 1s 1s forwards;
+}
+
+.logo-bigpath {
+  stroke-dasharray: 11400;
+  stroke-dashoffset: 11400;
+}
+
+.logo-earpath {
+  stroke-dasharray: 2140;
+  stroke-dashoffset: 2140;
+}
+
+.logo-smallpath {
+  stroke-dasharray: 935;
+  stroke-dashoffset: 935;
+}
+
+.logo-nosepath {
+  stroke-dasharray: 2500;
+  stroke-dashoffset: 2500;
+}
+
+.logo-chinpath {
+  stroke-dasharray: 1315;
+  stroke-dashoffset: 1315;
+}
+
+.logo-neckpath {
+  stroke-dasharray: 1225;
+  stroke-dashoffset: 1225;
+}
