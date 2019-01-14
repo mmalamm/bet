@@ -1,12 +1,9 @@
-* {
-  box-sizing: border-box;
-  --slate: #708090;
-  --off-black: #050505;
-}
-
 body {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+  --slate: #708090;
+  --off-black: #050505;
   --bitter: "Bitter", sans-serif;
   font-family: var(--bitter);
   -webkit-font-smoothing: antialiased;
