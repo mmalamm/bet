@@ -1,3 +1,20 @@
 .ChangePicForm {
   color: white;
+  padding: 1rem;
+
+}
+
+.buttonPanel {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.iconButton {
+  border: none;
+  margin: .25rem;
+}
+
+.buttonPic {
+  height: 3rem;
+  width: 3rem;
 }
