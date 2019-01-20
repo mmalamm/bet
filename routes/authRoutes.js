@@ -1,6 +1,8 @@
 const passport = require("passport");
 const newUserHandler = require("./newUserHandler");
 const log = require("../config/log")("authRoutes!~", "bgRed");
+const mongoose = require("mongoose");
+const User = mongoose.model("users");
 
 module.exports = app => {
   app.post("/auth/register", newUserHandler);
@@ -32,6 +34,17 @@ module.exports = app => {
       return res.send({ user: output });
     }
     res.send({ user: null });
+  });
+
+  app.post("/api/update_icon", (req, res) => {
+    const {
+      user: { username },
+      body: { iconName: icon }
+    } = req;
+    User.findOneAndUpdate({ username }, { $set: { icon } }).then(d => {
+      log("update icon path hit", d);
+      res.send(`Icon Updated to ${icon}`);
+    });
   });
 
   app.post("/api/logout", (req, res) => {

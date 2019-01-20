@@ -5,6 +5,8 @@ import { logout } from "../../../actions/authActions";
 import LinkButton from "../../common/LinkButton";
 import UserIcon from "../../common/UserIcon/UserIcon";
 
+import { showChangePicForm } from "../../../actions/modalActions";
+
 import s from "./WelcomeBar.module.scss";
 
 /// refactor with grid
@@ -21,7 +23,10 @@ class WelcomeBar extends Component {
     return (
       <div className={s.WelcomeBar}>
         <h3 className={s.heading}>Logged In:</h3>
-        <UserIcon onClick={this.handleUserIconClick} className={s.userIcon} />
+        <UserIcon
+          onClick={this.props.showChangePicForm}
+          className={s.userIcon}
+        />
         <div className={s.userInfo}>
           {username} <span className={s.points}>({points})</span>
         </div>
@@ -46,6 +51,9 @@ const mapStateToProps = ({ auth }) => ({ auth });
 const mapDispatchToProps = dispatch => ({
   logout() {
     dispatch(logout());
+  },
+  showChangePicForm() {
+    dispatch(showChangePicForm());
   }
 });
 

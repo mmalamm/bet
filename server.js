@@ -17,6 +17,7 @@ const authenticate = require("./middlewares/authenticate");
 const app = express();
 app.use(helmet());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json())
 app.use(cookieParser(keys.cookieKey));
 
 app.use(session);
