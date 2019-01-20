@@ -4,17 +4,16 @@ import { connect } from "react-redux";
 
 import styles from "./UserIcon.module.scss";
 
-console.log(styles);
-
 class UserIcon extends Component {
   render() {
-    const { username, icon } = this.props.auth;
-    const { className } = this.props;
+    const { className, onClick, auth } = this.props;
+    const { username, icon } = auth;
     return (
       <img
         className={[styles.UserIcon, className].join(" ")}
         src={icons[icon]}
         alt={username}
+        onClick={onClick}
       />
     );
   }

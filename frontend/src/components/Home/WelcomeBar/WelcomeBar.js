@@ -13,12 +13,15 @@ class WelcomeBar extends Component {
     e.preventDefault();
     this.props.logout();
   };
+  handleUserIconClick = e => {
+    console.log("hey worlsy");
+  };
   render() {
     const { username, points } = this.props.auth;
     return (
       <div className={s.WelcomeBar}>
         <h3 className={s.heading}>Logged In:</h3>
-        <UserIcon className={s.userIcon} />
+        <UserIcon onClick={this.handleUserIconClick} className={s.userIcon} />
         <div className={s.userInfo}>
           {username} <span className={s.points}>({points})</span>
         </div>
