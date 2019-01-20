@@ -16,6 +16,8 @@ import BotGame from "../BotGame/botgame";
 import { fetchCurrentUser } from "../../actions/authActions";
 import { LOGGED_IN } from "../../constants";
 
+import renderModal from "./renderModal";
+
 function NoMatch({ location }) {
   return (
     <div>
@@ -33,9 +35,11 @@ class App extends Component {
   isLoggedIn = () => this.props.auth.status === LOGGED_IN;
 
   render() {
+    const { modal } = this.props;
     return (
       <Router>
         <div className={s.App}>
+          {modal && renderModal(modal)}
           <Switch>
             <Route path="/" exact component={Home} />
             <Route path="/home/" component={Home} />
@@ -58,7 +62,7 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = ({ auth }) => ({ auth });
+const mapStateToProps = ({ auth, modal }) => ({ auth, modal });
 
 const mapDispatchToProps = dispatch => {
   return {

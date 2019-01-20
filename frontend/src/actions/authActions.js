@@ -41,3 +41,18 @@ export const fetchCurrentUser = () => {
       });
   };
 };
+
+export const updateIcon = iconName => {
+  return dispatch => {
+    axios({
+      method: "post",
+      url: "/api/update_icon",
+      data: {
+        iconName
+      }
+    }).then(data => {
+      console.log(data);
+      dispatch({ type: "UPDATE_ICON", iconName });
+    });
+  };
+};

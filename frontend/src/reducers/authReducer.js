@@ -4,6 +4,8 @@ import { AWAITING_AUTH_RESPONSE, LOGGED_OUT, LOGGED_IN } from "../constants";
 
 export default function authReducer(state = initialState.auth, action) {
   switch (action.type) {
+    case "UPDATE_ICON":
+      return { ...state, icon: action.iconName };
     case "ATTEMPTING_LOGIN":
       return { status: AWAITING_AUTH_RESPONSE };
     case "ATTEMPTING_LOGOUT":
