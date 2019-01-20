@@ -17,6 +17,7 @@ import { fetchCurrentUser } from "../../actions/authActions";
 import { LOGGED_IN } from "../../constants";
 
 import renderModal from "./renderModal";
+import renderFlash from './renderFlash';
 
 function NoMatch({ location }) {
   return (
@@ -35,11 +36,12 @@ class App extends Component {
   isLoggedIn = () => this.props.auth.status === LOGGED_IN;
 
   render() {
-    const { modal } = this.props;
+    const { modal, flash } = this.props;
     return (
       <Router>
         <div className={s.App}>
           {modal && renderModal(modal)}
+          {flash && renderFlash(flash)}
           <Switch>
             <Route path="/" exact component={Home} />
             <Route path="/home/" component={Home} />
@@ -62,7 +64,7 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = ({ auth, modal }) => ({ auth, modal });
+const mapStateToProps = ({ auth, modal, flash }) => ({ auth, modal, flash });
 
 const mapDispatchToProps = dispatch => {
   return {

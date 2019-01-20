@@ -12,6 +12,8 @@ import Loading from "../Loading/Loading";
 import LoginForm from "./LoginForm";
 import WelcomeBar from "./WelcomeBar/WelcomeBar";
 
+import { showFlash, loggedInFlash } from "../../actions/flashActions";
+
 const homePanels = {
   [AWAITING_AUTH_RESPONSE]: Loading,
   [LOGGED_OUT]: LoginForm,
@@ -20,7 +22,17 @@ const homePanels = {
 
 class Home extends Component {
   componentDidMount() {
-    console.log(qS.parse(this.props.location.search));
+    const queryStrings = qS.parse(this.props.location.search),
+      { showFlash, loggedInFlash } = this.props,
+      { r, l } = queryStrings;
+    console.log(queryStrings);
+    if (r) {
+      showFlash(r);
+    }
+    if (l) {
+      console.log(l);
+      loggedInFlash();
+    }
   }
   renderHomePanel = panelProps => {
     const Panel = homePanels[this.props.auth.status];
@@ -43,5 +55,18 @@ class Home extends Component {
 }
 
 const mapStateToProps = ({ auth }) => ({ auth });
+const mapDispatchToProps = dispatch => {
+  return {
+    showFlash(flashId) {
+      dispatch(showFlash(flashId));
+    },
+    loggedInFlash() {
+      dispatch(loggedInFlash());
+    }
+  };
+};
 
-export default connect(mapStateToProps)(Home);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Home);
