@@ -10,7 +10,7 @@ import {
 import s from "./App.module.scss";
 
 import Home from "../Home/Home";
-import Dashboard from "../Dashboard";
+import Dashboard from "../Dashboard/Dashboard";
 import BotGame from "../BotGame/botgame";
 
 import { fetchCurrentUser } from "../../actions/authActions";
