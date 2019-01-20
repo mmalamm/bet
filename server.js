@@ -24,14 +24,18 @@ app.use(session);
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(express.static(path.join(__dirname, "frontend", "build")));
-
 app.use("/api", authenticate);
 
 require("./models/User");
 require("./services/passport");
 
 require("./routes/authRoutes")(app);
+
+app.use(express.static(path.join(__dirname, "frontend", "build")));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'frontend', 'build'))
+})
 
 const server = app.listen(5050, () => log("server running on pt 5050"));
 

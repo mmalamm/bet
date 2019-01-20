@@ -1,0 +1,16 @@
+.Flash {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 2rem;
+  background-color: red;
+  color: greenyellow;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.close {
+  background-color: blue;
+}

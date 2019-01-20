@@ -10,14 +10,14 @@ module.exports = async (req, res, next) => {
 
   if (password.length < 3) {
     log("Password too short");
-    return res.redirect("/home?r=passwordTooShort&c=register");
+    return res.redirect("/?r=passwordTooShort&c=register");
   }
 
   const hash = await bcrypt.hash(password, saltRounds);
 
   if (username.length > 10 || username.match(/\W/g)) {
     log("Username invalid");
-    return res.redirect("/home?r=invalidUsername&c=register");
+    return res.redirect("/?r=invalidUsername&c=register");
   }
 
   const existingUserWithUsername = await User.findOne({ username });
@@ -27,7 +27,7 @@ module.exports = async (req, res, next) => {
       "Tried to register new user; would overwrite:",
       existingUserWithUsername
     );
-    return res.redirect("/home?r=usernameTaken&c=register");
+    return res.redirect("/?r=usernameTaken&c=register");
   }
 
   new User({
