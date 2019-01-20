@@ -12,9 +12,7 @@ import Loading from "../Loading/Loading";
 import LoginForm from "./LoginForm";
 import WelcomeBar from "./WelcomeBar/WelcomeBar";
 
-import {
-  showFlash
-} from "../../actions/flashActions";
+import { showFlash, loggedInFlash } from "../../actions/flashActions";
 
 const homePanels = {
   [AWAITING_AUTH_RESPONSE]: Loading,
@@ -25,10 +23,15 @@ const homePanels = {
 class Home extends Component {
   componentDidMount() {
     const queryStrings = qS.parse(this.props.location.search),
-      { showFlash } = this.props,
-      { r } = queryStrings;
+      { showFlash, loggedInFlash } = this.props,
+      { r, l } = queryStrings;
+    console.log(queryStrings);
     if (r) {
       showFlash(r);
+    }
+    if (l) {
+      console.log(l);
+      loggedInFlash();
     }
   }
   renderHomePanel = panelProps => {
@@ -56,6 +59,9 @@ const mapDispatchToProps = dispatch => {
   return {
     showFlash(flashId) {
       dispatch(showFlash(flashId));
+    },
+    loggedInFlash() {
+      dispatch(loggedInFlash());
     }
   };
 };

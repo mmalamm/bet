@@ -14,3 +14,16 @@
 .close {
   background-color: blue;
 }
+
+.Flash_loggedIn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 2rem;
+  background-color: blue;
+  color: greenyellow;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

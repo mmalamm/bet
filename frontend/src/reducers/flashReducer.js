@@ -1,18 +1,25 @@
 import initialState from "../initial-state.js";
+import {
+  AUTH_FAILURE_FLASH,
+  INVALID_USERNAME_FLASH,
+  USERNAME_TAKEN_FLASH,
+  GENERIC_ERROR_FLASH,
+  LOGGED_IN_FLASH,
+  SHORT_PASSWORD_FLASH
+} from "../constants";
 
-export default function modalReducer(state = initialState.flash, action) {
-  switch (action.type) {
-    case "SHOW_AUTH_FAILURE_FLASH":
-      return "AUTH_FAILURE_FLASH";
-    case "SHOW_INVALID_USERNAME_FLASH":
-      return "INVALID_USERNAME_FLASH";
-    case "SHOW_USERNAME_TAKEN_FLASH":
-      return "USERNAME_TAKEN_FLASH";
-    case "SHOW_GENERIC_ERROR":
-      return "GENERIC_ERROR_FLASH";
-    case "HIDE_FLASH":
-      return null;
-    default:
-      return state;
-  }
-}
+const flashMapper = {
+  authFailure: AUTH_FAILURE_FLASH,
+  invalidUsername: INVALID_USERNAME_FLASH,
+  usernameTaken: USERNAME_TAKEN_FLASH,
+  genericError: GENERIC_ERROR_FLASH,
+  loggedIn: LOGGED_IN_FLASH,
+  passwordTooShort: SHORT_PASSWORD_FLASH
+};
+
+const flashReducer = (state = initialState.flash, action) => {
+  if (action.type === "HIDE_FLASH") return null;
+  return flashMapper[action.type] || state;
+};
+
+export default flashReducer;

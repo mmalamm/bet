@@ -12,7 +12,7 @@ module.exports = app => {
     passport.authenticate("local", { failureRedirect: "/?r=authFailure" }),
     (req, res) => {
       log("Loggin in user:", req.user);
-      res.redirect("/");
+      res.redirect("/?l=loggedIn");
     }
   );
 

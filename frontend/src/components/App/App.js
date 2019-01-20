@@ -17,7 +17,7 @@ import { fetchCurrentUser } from "../../actions/authActions";
 import { LOGGED_IN } from "../../constants";
 
 import renderModal from "./renderModal";
-import showFlash from './showFlash';
+import renderFlash from './renderFlash';
 
 function NoMatch({ location }) {
   return (
@@ -41,7 +41,7 @@ class App extends Component {
       <Router>
         <div className={s.App}>
           {modal && renderModal(modal)}
-          {flash && showFlash(flash)}
+          {flash && renderFlash(flash)}
           <Switch>
             <Route path="/" exact component={Home} />
             <Route path="/home/" component={Home} />

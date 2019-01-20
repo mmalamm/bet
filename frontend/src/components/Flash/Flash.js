@@ -11,9 +11,16 @@ class _Flash extends React.Component {
   componentDidMount() {
     const rootDiv = document.getElementById("root");
     this.flashTarget = document.createElement("div");
-    this.flashTarget.className = s.Flash;
     document.body.insertBefore(this.flashTarget, rootDiv);
-    this._render();
+    if (this.props.loggedIn) {
+      if (this.props.auth.username) {
+        this.flashTarget.className = s.Flash_loggedIn;
+        this._renderLoggedIn();
+      }
+    } else {
+      this.flashTarget.className = s.Flash;
+      this._render();
+    }
     setTimeout(this.props.hideFlash, 5000);
   }
   componentWillUpdate() {
@@ -31,10 +38,20 @@ class _Flash extends React.Component {
       this.flashTarget
     );
   }
+  _renderLoggedIn() {
+    ReactDOM.render(
+      <Provider store={store}>
+        <p>Logged In as {this.props.auth.username}</p>
+      </Provider>,
+      this.flashTarget
+    );
+  }
   render() {
     return <noscript />;
   }
 }
+
+const mapStateToProps = ({ auth }) => ({ auth });
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -45,7 +62,7 @@ const mapDispatchToProps = dispatch => {
 };
 
 const Flash = connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(_Flash);
 
@@ -56,5 +73,11 @@ export const createFlash = child => {
         <span>{child}</span>
       </Flash>
     );
+  };
+};
+
+export const createLoggedInFlash = () => {
+  return props => {
+    return <Flash loggedIn={props.loggedIn} />;
   };
 };
