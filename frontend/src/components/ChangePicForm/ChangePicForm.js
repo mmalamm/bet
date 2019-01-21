@@ -11,21 +11,28 @@ import icons from "../../assets/icons";
 export class ChangePicForm extends Component {
   updateIcon = iconName => e => {
     this.props.updateIcon(iconName);
+    this.props.closeModal();
   };
 
   render() {
     const { closeModal } = this.props;
     return (
-      <div className={s.ChangePicForm}>
-        <button onClick={closeModal}>Close</button>
-        <div className={s.buttonPanel}>
-          {Object.keys(icons).map(key => {
-            return (
-              <button key={key} onClick={this.updateIcon(key)} className={s.iconButton}>
-                <img className={s.buttonPic} src={icons[key]} alt={key} />
-              </button>
-            );
-          })}
+      <div>
+        <div className={s.ChangePicForm}>
+          <button onClick={closeModal}>Close</button>
+          <div className={s.buttonPanel}>
+            {Object.keys(icons).map(key => {
+              return (
+                <button
+                  key={key}
+                  onClick={this.updateIcon(key)}
+                  className={s.iconButton}
+                >
+                  <img className={s.buttonPic} src={icons[key]} alt={key} />
+                </button>
+              );
+            })}
+          </div>
         </div>
       </div>
     );
