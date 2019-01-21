@@ -6,11 +6,14 @@ import styles from "./UserIcon.module.scss";
 
 class UserIcon extends Component {
   render() {
-    const { className, onClick, auth } = this.props;
-    const { username, icon } = auth;
+    const {
+      className,
+      onClick,
+      auth: { username, icon }
+    } = this.props;
     return (
       <img
-        className={[styles.UserIcon, className].join(" ")}
+        className={`${styles.UserIcon} ${className}`}
         src={icons[icon]}
         alt={username}
         onClick={onClick}

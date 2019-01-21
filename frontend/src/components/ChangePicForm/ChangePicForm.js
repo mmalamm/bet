@@ -6,12 +6,14 @@ import { connect } from "react-redux";
 import { updateIcon } from "../../actions/authActions";
 import { hideModal } from "../../actions/modalActions";
 
+import UserIcon from "../common/UserIcon/UserIcon";
+
 import icons from "../../assets/icons";
 
 export class ChangePicForm extends Component {
   updateIcon = iconName => e => {
     this.props.updateIcon(iconName);
-    this.props.closeModal();
+    // this.props.closeModal();
   };
 
   render() {
@@ -20,6 +22,7 @@ export class ChangePicForm extends Component {
       <div>
         <div className={s.ChangePicForm}>
           <button onClick={closeModal}>Close</button>
+          <UserIcon />
           <div className={s.buttonPanel}>
             {Object.keys(icons).map(key => {
               return (
@@ -39,9 +42,9 @@ export class ChangePicForm extends Component {
   }
 }
 
-const mapStateToProps = ({ auth }) => {
-  return { selectedIcon: auth.icon, username: auth.username };
-};
+// const mapStateToProps = ({ auth }) => {
+//   return { selectedIcon: auth.icon, username: auth.username };
+// };
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -55,6 +58,6 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps
 )(ChangePicForm);

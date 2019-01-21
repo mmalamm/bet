@@ -16,8 +16,14 @@
 }
 
 .iconButton {
+  height: 3.5rem;
+  width: 3.5rem;
   border: none;
   margin: .25rem;
+  background: red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .buttonPic {
