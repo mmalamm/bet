@@ -1,16 +1,17 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
-import "./Modal.css";
 import store from "../../store";
 import { Provider } from "react-redux";
 
 import { connect } from "react-redux";
 import { hideModal } from "../../actions/modalActions";
 
+import s from './Modal.module.scss';
+
 class _Modal extends Component {
   componentDidMount() {
     this.modalTarget = document.createElement("div");
-    this.modalTarget.className = "Modal";
+    this.modalTarget.className = s.Modal;
     document.body.appendChild(this.modalTarget);
     this._render();
     document.addEventListener("keydown", this.closeOnEscape);
@@ -32,9 +33,20 @@ class _Modal extends Component {
     document.removeEventListener("keydown", this.closeOnEscape);
   }
 
+  renderCloseButton() {
+    return (
+      <button className={s.closeButton} onClick={this.props.hideModal}>
+        ✖
+      </button>
+    )
+  }
+
   _render() {
     ReactDOM.render(
-      <Provider store={store}>{this.props.children}</Provider>,
+      <Provider store={store}>
+        {this.renderCloseButton()}
+        {this.props.children}
+      </Provider>,
       this.modalTarget
     );
   }

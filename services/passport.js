@@ -22,7 +22,7 @@ passport.deserializeUser((id, done) => {
 passport.use(
   new LocalStrategy(function(username, password, done) {
     log("Passport local strategy activated:", username, password);
-    User.findOne({ username }, async function(err, user) {
+    User.findOne({ usernameKey: username.toLowerCase() }, async function(err, user) {
       if (err) {
         return done(err);
       }

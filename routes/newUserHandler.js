@@ -20,7 +20,7 @@ module.exports = async (req, res, next) => {
     return res.redirect("/?r=invalidUsername&c=register");
   }
 
-  const existingUserWithUsername = await User.findOne({ username });
+  const existingUserWithUsername = await User.findOne({ usernameKey: username.toLowerCase() });
 
   if (existingUserWithUsername) {
     log(
@@ -32,6 +32,7 @@ module.exports = async (req, res, next) => {
 
   new User({
     username,
+    usernameKey: username.toLowerCase(),
     passwordHash: hash,
     icon: "apple",
     points: 250

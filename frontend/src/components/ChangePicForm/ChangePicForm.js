@@ -14,11 +14,23 @@ export class ChangePicForm extends Component {
     this.props.updateIcon(iconName);
   };
 
+  renderUserInfo() {
+    return (
+      <div className={s.userInfo}>
+        <UserIcon className={s.userIcon} />
+          <div className={s.userInfoText}>
+            <div className={s.username}>{this.props.username}</div>
+            <div className={s.points}>{this.props.points}</div>
+          </div>
+      </div>
+    )
+  }
+
   render() {
     return (
       <div>
         <div className={s.ChangePicForm}>
-          <UserIcon />
+          {this.renderUserInfo()}
           <div className={s.buttonPanel}>
             {Object.keys(icons).map(key => {
               return (
@@ -38,6 +50,11 @@ export class ChangePicForm extends Component {
   }
 }
 
+const mapStateToProps = ({ auth: { username, points } }) => ({
+  username,
+  points
+});
+
 const mapDispatchToProps = dispatch => {
   return {
     updateIcon(iconName) {
@@ -47,6 +64,6 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(ChangePicForm);
