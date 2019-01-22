@@ -7,11 +7,11 @@ const User = require("../models/User");
 const fs = require("fs");
 
 const sampleUsers = [
-  ["billy", "bob"],
-  ["gw", "bush"],
-  ["hey", "world"],
-  ["bu", "nelly"],
-  ['alvin', 'chun'],
+  ["billY", "bob"],
+  ["gW", "bush"],
+  ["hEy", "world"],
+  ["BU", "nelly"],
+  ['alVin', 'chun'],
   
 ];
 
@@ -29,6 +29,7 @@ const promises = sampleUsers
     const randomIconIdx = Math.floor(Math.random() * icons.length);
     return new User({
       username,
+      usernameKey: username.toLowerCase(),
       passwordHash: hash,
       icon: icons[randomIconIdx],
       points: 250

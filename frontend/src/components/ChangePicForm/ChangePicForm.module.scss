@@ -1,3 +1,52 @@
 .ChangePicForm {
   color: white;
+  margin-top: 2rem;
+  max-width: 20rem;
+  padding: 1rem;
+  border-radius: 1rem;
+  background-color: var(--slate);
+}
+
+.buttonPanel {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.iconButton {
+  height: 3.5rem;
+  width: 3.5rem;
+  border: none;
+  margin: 0.25rem;
+  display: flex;
+  background: none;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.buttonPic {
+  height: 3rem;
+  width: 3rem;
+}
+
+.userInfo {
+  display: flex;
+  color: var(--off-black);
+}
+
+.userInfoText {
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  align-items: stretch;
+}
+.username {
+  font-size: 2rem;
+  font-weight: bolder;
+  margin: 0 1rem;
+}
+.points {
+  margin: 1rem;
+  font-weight: bolder;
 }

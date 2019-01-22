@@ -4,36 +4,61 @@ import s from "./ChangePicForm.module.scss";
 
 import { connect } from "react-redux";
 import { updateIcon } from "../../actions/authActions";
-import { hideModal } from "../../actions/modalActions";
+
+import UserIcon from "../common/UserIcon/UserIcon";
+
+import icons from "../../assets/icons";
 
 export class ChangePicForm extends Component {
   updateIcon = iconName => e => {
     this.props.updateIcon(iconName);
   };
 
-  render() {
-    const { closeModal } = this.props;
+  renderUserInfo() {
     return (
-      <div className={s.ChangePicForm}>
-        <button onClick={this.updateIcon("apple")}>apple</button>
-        <button onClick={this.updateIcon("bananas")}>bananas</button>
-        <button onClick={closeModal}>cherry</button>
+      <div className={s.userInfo}>
+        <UserIcon className={s.userIcon} />
+          <div className={s.userInfoText}>
+            <div className={s.username}>{this.props.username}</div>
+            <div className={s.points}>{this.props.points}</div>
+          </div>
+      </div>
+    )
+  }
+
+  render() {
+    return (
+      <div>
+        <div className={s.ChangePicForm}>
+          {this.renderUserInfo()}
+          <div className={s.buttonPanel}>
+            {Object.keys(icons).map(key => {
+              return (
+                <button
+                  key={key}
+                  onClick={this.updateIcon(key)}
+                  className={s.iconButton}
+                >
+                  <img className={s.buttonPic} src={icons[key]} alt={key} />
+                </button>
+              );
+            })}
+          </div>
+        </div>
       </div>
     );
   }
 }
 
-const mapStateToProps = ({ auth }) => {
-  return { selectedIcon: auth.icon, username: auth.username };
-};
+const mapStateToProps = ({ auth: { username, points } }) => ({
+  username,
+  points
+});
 
 const mapDispatchToProps = dispatch => {
   return {
     updateIcon(iconName) {
       dispatch(updateIcon(iconName));
-    },
-    closeModal() {
-      dispatch(hideModal());
     }
   };
 };

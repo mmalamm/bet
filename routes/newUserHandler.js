@@ -5,6 +5,8 @@ const log = require("../config/log")("newUserHandler~!", "bgGreen");
 const bcrypt = require("bcrypt");
 const saltRounds = 2;
 
+const { keyify } = require("../utils/helpers");
+
 module.exports = async (req, res, next) => {
   const { username, password } = req.body;
 
@@ -15,12 +17,14 @@ module.exports = async (req, res, next) => {
 
   const hash = await bcrypt.hash(password, saltRounds);
 
-  if (username.length > 10 || username.match(/\W/g)) {
+  if (username.length > 14 || username.match(/\W/g)) {
     log("Username invalid");
     return res.redirect("/?r=invalidUsername&c=register");
   }
 
-  const existingUserWithUsername = await User.findOne({ username });
+  const existingUserWithUsername = await User.findOne({
+    usernameKey: keyify(username)
+  });
 
   if (existingUserWithUsername) {
     log(
@@ -32,6 +36,7 @@ module.exports = async (req, res, next) => {
 
   new User({
     username,
+    usernameKey: keyify(username),
     passwordHash: hash,
     icon: "apple",
     points: 250
