@@ -6,7 +6,7 @@ import s from './Dashboard.module.scss';
 
 import NavBar from '../NavBar/NavBar'
 
-export default class Dashboard extends Component {
+class Dashboard extends Component {
   render() {
     return (
       <div className={s.Dashboard}>
@@ -16,3 +16,5 @@ export default class Dashboard extends Component {
     );
   }
 }
+
+export default Dashboard
