@@ -9,7 +9,7 @@ import s from "./Dashboard.module.scss";
 
 import NavBar from "../NavBar/NavBar";
 import { updateCurrentUsers } from "../../actions/usersActions";
-import UserIcon from "../common/UserIcon/UserIcon";
+import CurrentUsers from "./CurrentUsers";
 
 class Dashboard extends Component {
   componentDidMount() {
@@ -31,14 +31,7 @@ class Dashboard extends Component {
     return (
       <div className={s.Dashboard}>
         <LinkButton to="/home">Home</LinkButton>
-        {this.props.currentUsers.map(usr => {
-          return (
-            <div key={usr.username}>
-              <UserIcon user={usr} />
-              <p>{usr.username}</p>
-            </div>
-          );
-        })}
+        <CurrentUsers />
         <NavBar />
       </div>
     );
