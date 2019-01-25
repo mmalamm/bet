@@ -30,6 +30,12 @@ module.exports = server => {
       connectedSocketIds().map(id =>
         get(io, `sockets.sockets[${id}].request.user.username`)
       );
+    const connectedUsers = () =>
+      connectedSocketIds().map(id => {
+        const user = get(io, `sockets.sockets[${id}].request.user`);
+        const { icon, username } = user;
+        return { icon, username };
+      });
     log(
       `user ${socket.request.user.username} has joined with socket ${socket.id}`
     );
@@ -46,7 +52,7 @@ module.exports = server => {
     }
     ioLog("user connected to socket:", socket.request.user);
     io.emit("welcome", "hey");
-    io.emit("currentUsers", connectedUsernames());
+    io.emit("currentUsers", connectedUsers());
     socket.on("playTurn", turn => {
       ioLog(turn);
       socket.emit("updateStatus", `thanks ${socket.request.user.username}`);
@@ -56,7 +62,7 @@ module.exports = server => {
     });
     socket.on("disconnect", () => {
       log(`${socket.id} disconnected`, connectedUsernames());
-      io.emit("currentUsers", connectedUsernames());
+      io.emit("currentUsers", connectedUsers());
     });
   });
 };

@@ -1,6 +1,5 @@
 import icons from "../../../assets/icons";
 import React, { Component } from "react";
-import { connect } from "react-redux";
 
 import styles from "./UserIcon.module.scss";
 
@@ -9,7 +8,7 @@ class UserIcon extends Component {
     const {
       className,
       onClick,
-      auth: { username, icon }
+      user: { username, icon }
     } = this.props;
     return (
       <img
@@ -22,6 +21,5 @@ class UserIcon extends Component {
   }
 }
 
-const mapStateToProps = ({ auth }) => ({ auth });
 
-export default connect(mapStateToProps)(UserIcon);
+export default (UserIcon);

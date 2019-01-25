@@ -5,7 +5,7 @@ import s from "./ChangePicForm.module.scss";
 import { connect } from "react-redux";
 import { updateIcon } from "../../actions/authActions";
 
-import UserIcon from "../common/UserIcon/UserIcon";
+import MyIcon from "../common/MyIcon/MyIcon";
 
 import icons from "../../assets/icons";
 
@@ -17,7 +17,7 @@ export class ChangePicForm extends Component {
   renderUserInfo() {
     return (
       <div className={s.userInfo}>
-        <UserIcon className={s.userIcon} />
+        <MyIcon className={s.MyIcon} />
           <div className={s.userInfoText}>
             <div className={s.username}>{this.props.username}</div>
             <div className={s.points}>{this.props.points}</div>
