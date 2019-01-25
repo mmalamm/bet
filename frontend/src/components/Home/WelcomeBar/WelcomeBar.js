@@ -3,29 +3,26 @@ import { connect } from "react-redux";
 
 import { logout } from "../../../actions/authActions";
 import LinkButton from "../../common/LinkButton";
-import UserIcon from "../../common/UserIcon/UserIcon";
+import MyIcon from "../../common/MyIcon/MyIcon";
 
 import { showChangePicForm } from "../../../actions/modalActions";
 
 import s from "./WelcomeBar.module.scss";
 
-/// refactor with grid
+// / refactor with grid
 class WelcomeBar extends Component {
   logout = e => {
     e.preventDefault();
     this.props.logout();
-  };
-  handleUserIconClick = e => {
-    console.log("hey worlsy");
   };
   render() {
     const { username, points } = this.props.auth;
     return (
       <div className={s.WelcomeBar}>
         <h3 className={s.heading}>Logged In:</h3>
-        <UserIcon
+        <MyIcon
           onClick={this.props.showChangePicForm}
-          className={s.userIcon}
+          className={s.MyIcon}
         />
         <div className={s.userInfo}>
           {username} <span className={s.points}>({points})</span>
