@@ -1,18 +1,20 @@
 import React, { Component } from "react";
 import UserIcon from "../common/UserIcon/UserIcon";
 
+import s from "./CurrentUsers.module.scss";
+
 import { connect } from "react-redux";
 
 class CurrentUsers extends Component {
   render() {
     console.log("currUsrs", this.props.currentUsers);
     return (
-      <div>
+      <div className={s.CurrentUsers}>
         {this.props.currentUsers.map(usr => {
           return (
-            <div key={usr.username}>
+            <div className={s.userTile} key={usr.username}>
               <UserIcon user={usr} />
-              <p>{usr.username}</p>
+              <p className={s.userTileText}>{usr.username}</p>
             </div>
           );
         })}

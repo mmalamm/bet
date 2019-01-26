@@ -1,8 +1,7 @@
 .UserIcon {
-  border: .1rem solid black;
+  border: .1rem solid var(--dark-slate);
   border-radius: .25rem;
-  background-color: var(--off-black);
-  padding: .25rem;
-  height: 5rem;
-  width: 5rem;
+  background-color: var(--dark-slate);
+  height: 2rem;
+  width: 2rem;
 }

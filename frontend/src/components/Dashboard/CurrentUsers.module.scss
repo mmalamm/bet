@@ -1,0 +1,14 @@
+.CurrentUsers {
+  display: flex;
+  flex-direction: column;
+}
+
+.userTile {
+  display: flex;
+  align-items: center;
+}
+
+.userTileText {
+  font-size: 1rem;
+  margin: .5rem;
+}

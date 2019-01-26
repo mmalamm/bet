@@ -31,8 +31,8 @@ class Dashboard extends Component {
     return (
       <div className={s.Dashboard}>
         <LinkButton to="/home">Home</LinkButton>
-        <CurrentUsers />
         <NavBar />
+        <CurrentUsers />
       </div>
     );
   }
