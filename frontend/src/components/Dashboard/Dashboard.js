@@ -3,8 +3,6 @@ import React, { Component } from "react";
 import io from "socket.io-client";
 import { connect } from "react-redux";
 
-import LinkButton from "../common/LinkButton";
-
 import s from "./Dashboard.module.scss";
 
 import NavBar from "../NavBar/NavBar";
@@ -15,13 +13,9 @@ class Dashboard extends Component {
   componentDidMount() {
     const updateUsers = this.props.updateCurrentUsers;
     this.socket = io();
-    this.socket.on("connect", socket => {
-      console.log("connected");
-    });
-    this.socket.on("welcome", d => console.log("wlhwlcome", d));
-    this.socket.on("currentUsers", d => {
-      updateUsers(d);
-    });
+    this.socket.on("connect", socket => console.log("connected"));
+    this.socket.on("welcome", d => console.log("welcome recieved:", d));
+    this.socket.on("currentUsers", d => updateUsers(d));
   }
   componentWillUnmount() {
     this.socket.disconnect();
@@ -30,7 +24,6 @@ class Dashboard extends Component {
   render() {
     return (
       <div className={s.Dashboard}>
-        <LinkButton to="/home">Home</LinkButton>
         <NavBar />
         <CurrentUsers />
       </div>

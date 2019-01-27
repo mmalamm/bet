@@ -21,5 +21,4 @@ class UserIcon extends Component {
   }
 }
 
-
-export default (UserIcon);
+export default UserIcon;

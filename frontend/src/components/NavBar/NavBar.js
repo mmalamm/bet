@@ -1,11 +1,33 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
 
-export default class NavBar extends Component {
+import MyIcon from "../common/MyIcon/MyIcon";
+
+import s from "./NavBar.module.scss";
+
+import { connect } from "react-redux";
+
+import LinkButton from "../common/LinkButton";
+class NavBar extends Component {
   render() {
+    const { username, points } = this.props.auth;
     return (
-      <div>
-        nuvvy bar
+      <div className={s.NavBar}> 
+        <LinkButton to="/home">Home</LinkButton>
+        <MyIcon />
+        <div className={s.navBarDetails}>
+          <h4>{username}</h4>
+          <div>{points}</div>
+        </div>
       </div>
-    )
+    );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    auth: state.auth
+  };
+};
+
+export default connect(mapStateToProps)(NavBar);
+
