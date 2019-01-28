@@ -6,16 +6,23 @@ import { Provider } from "react-redux";
 import { connect } from "react-redux";
 import { hideModal } from "../../actions/modalActions";
 
-import s from './Modal.module.scss';
+import s from "./Modal.module.scss";
 
 class _Modal extends Component {
   componentDidMount() {
     this.modalTarget = document.createElement("div");
     this.modalTarget.className = s.Modal;
+    this.modalTarget.addEventListener("click", this.closeOnBackgroundClick);
     document.body.appendChild(this.modalTarget);
     this._render();
     document.addEventListener("keydown", this.closeOnEscape);
   }
+
+  closeOnBackgroundClick = e => {
+    if (e.target.className === s.Modal) {
+      this.props.hideModal();
+    }
+  };
 
   closeOnEscape = e => {
     if (e.keyCode === 27) {
@@ -28,6 +35,7 @@ class _Modal extends Component {
   }
 
   componentWillUnmount() {
+    this.modalTarget.removeEventListener("click", this.closeOnBackgroundClick);
     ReactDOM.unmountComponentAtNode(this.modalTarget);
     document.body.removeChild(this.modalTarget);
     document.removeEventListener("keydown", this.closeOnEscape);
@@ -38,7 +46,7 @@ class _Modal extends Component {
       <button className={s.closeButton} onClick={this.props.hideModal}>
         ✖
       </button>
-    )
+    );
   }
 
   _render() {
