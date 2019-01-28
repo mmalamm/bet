@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 
+import { withRouter } from "react-router-dom";
+
 import io from "socket.io-client";
 import { connect } from "react-redux";
 
@@ -13,9 +15,10 @@ class Dashboard extends Component {
   componentDidMount() {
     const updateUsers = this.props.updateCurrentUsers;
     this.socket = io();
-    this.socket.on("connect", socket => console.log("connected"));
+    this.socket.on("connect", () => console.log("connected"));
     this.socket.on("welcome", d => console.log("welcome recieved:", d));
     this.socket.on("currentUsers", d => updateUsers(d));
+    this.socket.on("disconnect", () => this.props.history.push("/home"));
   }
   componentWillUnmount() {
     this.socket.disconnect();
@@ -41,7 +44,9 @@ const mapDispatchToPros = dispatch => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToPros
-)(Dashboard);
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToPros
+  )(Dashboard)
+);
