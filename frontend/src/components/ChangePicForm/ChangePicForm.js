@@ -18,32 +18,30 @@ export class ChangePicForm extends Component {
     return (
       <div className={s.userInfo}>
         <MyIcon className={s.MyIcon} />
-          <div className={s.userInfoText}>
-            <div className={s.username}>{this.props.username}</div>
-            <div className={s.points}>{this.props.points}</div>
-          </div>
+        <div className={s.userInfoText}>
+          <div className={s.username}>{this.props.username}</div>
+          <div className={s.points}>{this.props.points}</div>
+        </div>
       </div>
-    )
+    );
   }
 
   render() {
     return (
-      <div>
-        <div className={s.ChangePicForm}>
-          {this.renderUserInfo()}
-          <div className={s.buttonPanel}>
-            {Object.keys(icons).map(key => {
-              return (
-                <button
-                  key={key}
-                  onClick={this.updateIcon(key)}
-                  className={s.iconButton}
-                >
-                  <img className={s.buttonPic} src={icons[key]} alt={key} />
-                </button>
-              );
-            })}
-          </div>
+      <div className={s.ChangePicForm}>
+        {this.renderUserInfo()}
+        <div className={s.buttonPanel}>
+          {Object.keys(icons).map(key => {
+            return (
+              <button
+                key={key}
+                onClick={this.updateIcon(key)}
+                className={s.iconButton}
+              >
+                <img className={s.buttonPic} src={icons[key]} alt={key} />
+              </button>
+            );
+          })}
         </div>
       </div>
     );

@@ -19,7 +19,8 @@ class _Modal extends Component {
   }
 
   closeOnBackgroundClick = e => {
-    if (e.target.className === s.Modal) {
+    const cN = e.target.className;
+    if (cN === s.Modal || cN === s.ModalContainer) {
       this.props.hideModal();
     }
   };
@@ -53,7 +54,7 @@ class _Modal extends Component {
     ReactDOM.render(
       <Provider store={store}>
         {this.renderCloseButton()}
-        {this.props.children}
+        <div className={s.ModalContainer}>{this.props.children}</div>
       </Provider>,
       this.modalTarget
     );

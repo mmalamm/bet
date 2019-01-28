@@ -9,6 +9,10 @@
   justify-content: center;
 }
 
+.ModalContainer {
+  user-select: none;
+}
+
 .closeButton {
   position: absolute;
   top: 1rem;
