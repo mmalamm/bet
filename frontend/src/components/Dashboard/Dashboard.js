@@ -17,7 +17,9 @@ class Dashboard extends Component {
     this.socket = io();
     this.socket.on("connect", () => console.log("connected"));
     this.socket.on("welcome", d => console.log("welcome recieved:", d));
-    this.socket.on("currentUsers", d => updateUsers(d));
+    this.socket.on("currentUsers", d =>
+      updateUsers(d.filter(u => u.username !== this.props.auth.username))
+    );
     this.socket.on("disconnect", () => this.props.history.push("/home"));
   }
   componentWillUnmount() {
@@ -34,7 +36,7 @@ class Dashboard extends Component {
   }
 }
 
-const mapStateToProps = ({ users }) => ({ currentUsers: users });
+const mapStateToProps = ({ users, auth }) => ({ currentUsers: users, auth });
 
 const mapDispatchToPros = dispatch => {
   return {

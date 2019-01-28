@@ -11,13 +11,13 @@ class NavBar extends Component {
   render() {
     const { username, points } = this.props.auth;
     return (
-      <div className={s.NavBar}> 
-        <LinkButton to="/home">Home</LinkButton>
+      <div className={s.NavBar}>
         <MyIcon />
         <div className={s.navBarDetails}>
           <h4>{username}</h4>
           <div>{points}</div>
         </div>
+        <LinkButton to="/home">Home</LinkButton>
       </div>
     );
   }
@@ -30,4 +30,3 @@ const mapStateToProps = state => {
 };
 
 export default connect(mapStateToProps)(NavBar);
-
