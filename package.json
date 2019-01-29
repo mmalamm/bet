@@ -9,7 +9,8 @@
   },
   "scripts": {
     "seedDb": "node scripts/seedDb.js",
-    "start": "node server.js",
+    "build-client": "npm run build --prefix frontend",
+    "start": "npm run build-client && node server.js",
     "server": "nodemon server.js",
     "client": "npm run start --prefix frontend",
     "dev": "concurrently \"npm run server\" \"npm run client\""
