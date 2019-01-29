@@ -17,7 +17,7 @@ const authenticate = require("./middlewares/authenticate");
 const app = express();
 app.use(helmet());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.json())
+app.use(express.json());
 app.use(cookieParser(keys.cookieKey));
 
 app.use(session);
@@ -31,11 +31,13 @@ require("./services/passport");
 
 require("./routes/authRoutes")(app);
 
-app.use(express.static(path.join(__dirname, "frontend", "build")));
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "frontend", "build")));
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'frontend', 'build'))
-})
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
+  });
+}
 
 const PORT = process.env.PORT || 5050;
 const server = app.listen(PORT, () => log("server running on port", PORT));
