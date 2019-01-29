@@ -37,6 +37,7 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'frontend', 'build'))
 })
 
-const server = app.listen(5050, () => log("server running on pt 5050"));
+const PORT = process.env.PORT || 5050;
+const server = app.listen(PORT, () => log("server running on port", PORT));
 
 require("./services/socketio")(server);

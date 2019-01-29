@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "engines": {
+    "node": "11.0.0",
+    "npm": "6.5.0"
+  },
   "scripts": {
     "seedDb": "node scripts/seedDb.js",
     "start": "node server.js",
