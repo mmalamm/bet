@@ -50,7 +50,7 @@ module.exports = server => {
         .filter(s => s.id !== socket.id)
         .forEach(skt => skt.disconnect());
     }
-    ioLog("user connected to socket:", socket.request.user);
+    ioLog("user connected to socket:", socket.request.user.username);
     io.emit("welcome", "hey");
     io.emit("currentUsers", connectedUsers());
     socket.on("playTurn", turn => {

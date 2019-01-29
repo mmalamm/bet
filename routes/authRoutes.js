@@ -42,7 +42,7 @@ module.exports = app => {
       body: { iconName: icon }
     } = req;
     User.findOneAndUpdate({ username }, { $set: { icon } }).then(d => {
-      log("update icon path hit", d);
+      log("update icon path hit", d.username);
       res.send(`Icon Updated to ${icon}`);
     });
   });
