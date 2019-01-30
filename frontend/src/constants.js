@@ -13,6 +13,7 @@ const CONSTANTS = [
   "ATTEMPTING_LOGOUT",
   "SIGN_IN",
   "SIGN_OUT",
+  "UPDATE_ICON",
 
   //// flash constants
   "AUTH_FAILURE_FLASH",
@@ -34,6 +35,7 @@ export const {
   ATTEMPTING_LOGOUT,
   SIGN_IN,
   SIGN_OUT,
+  UPDATE_ICON,
 
   ///// flash constants
   AUTH_FAILURE_FLASH,

@@ -11,7 +11,13 @@ I want to make a game that users can play with each other online.
 
 ## Todos
 
-- split up files
-- fix local auth
-- hash out frontend auth flow
-- create config
+x- split up files
+x- fix local auth
+x- hash out frontend auth flow
+x- create config
+- session affinity?
+- autorestart / node forever
+
+## References
+- https://devcenter.heroku.com/articles/websockets
+- 

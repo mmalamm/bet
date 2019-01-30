@@ -40,6 +40,8 @@ if (process.env.NODE_ENV === "production") {
 }
 
 const PORT = process.env.PORT || 5050;
-const server = app.listen(PORT, () => log("server running on port", PORT));
+const server = app.listen(PORT, () => {
+  log("server running on port", PORT);
+});
 
 require("./services/socketio")(server);

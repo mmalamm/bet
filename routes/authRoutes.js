@@ -49,7 +49,7 @@ module.exports = app => {
 
   app.post("/api/logout", (req, res) => {
     if (req.user) {
-      log("Logging out user via API:", req.user);
+      log("Logging out user via API:", req.user.username);
       req.logout();
       res.send("logged out");
     } else {
