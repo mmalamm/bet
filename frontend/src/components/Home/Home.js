@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import qS from "query-string";
 
@@ -27,12 +28,10 @@ class Home extends Component {
       { showFlash, loggedInFlash, hideModal } = this.props,
       { r, l } = queryStrings;
     hideModal();
-    console.log(queryStrings);
     if (r) {
       showFlash(r);
     }
     if (l) {
-      console.log(l);
       loggedInFlash();
     }
   }
@@ -57,19 +56,8 @@ class Home extends Component {
 }
 
 const mapStateToProps = ({ auth }) => ({ auth });
-const mapDispatchToProps = dispatch => {
-  return {
-    showFlash(flashId) {
-      dispatch(showFlash(flashId));
-    },
-    loggedInFlash() {
-      dispatch(loggedInFlash());
-    },
-    hideModal() {
-      dispatch(hideModal());
-    }
-  };
-};
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ showFlash, loggedInFlash, hideModal }, dispatch);
 
 export default connect(
   mapStateToProps,

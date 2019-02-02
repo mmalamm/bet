@@ -2,11 +2,11 @@
   display: flex;
   justify-content: center;
   margin-top: 2rem;
-  transition: filter .1s ease-in-out;
+  transition: filter .1s ease-in;
 }
 
 .modal {
-  filter: blur(3px);
+  filter: blur(6px);
   pointer-events: none;
   user-select: none;
 }
