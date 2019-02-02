@@ -6,8 +6,18 @@ import s from "./NavBar.module.scss";
 
 import { connect } from "react-redux";
 
+import { showNewGameForm } from "../../actions/modalActions";
+
 import LinkButton from "../common/LinkButton";
 class NavBar extends Component {
+  renderMenu() {
+    return (
+      <div>
+        <LinkButton to="/home">Home</LinkButton>
+        <button onClick={e => this.props.showNewGameForm()}>Create Game</button>
+      </div>
+    );
+  }
   render() {
     const { username, points } = this.props.auth;
     return (
@@ -17,7 +27,7 @@ class NavBar extends Component {
           <h4>{username}</h4>
           <div>{points}</div>
         </div>
-        <LinkButton to="/home">Home</LinkButton>
+        {this.renderMenu()}
       </div>
     );
   }
@@ -29,4 +39,15 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(NavBar);
+const mapDispatchToProps = dispatch => {
+  return {
+    showNewGameForm() {
+      dispatch(showNewGameForm());
+    }
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(NavBar);
