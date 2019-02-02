@@ -13,6 +13,7 @@ import LoginForm from "./LoginForm";
 import WelcomeBar from "./WelcomeBar/WelcomeBar";
 
 import { showFlash, loggedInFlash } from "../../actions/flashActions";
+import { hideModal } from "../../actions/modalActions";
 
 const homePanels = {
   [AWAITING_AUTH_RESPONSE]: Loading,
@@ -23,8 +24,9 @@ const homePanels = {
 class Home extends Component {
   componentDidMount() {
     const queryStrings = qS.parse(this.props.location.search),
-      { showFlash, loggedInFlash } = this.props,
+      { showFlash, loggedInFlash, hideModal } = this.props,
       { r, l } = queryStrings;
+    hideModal();
     console.log(queryStrings);
     if (r) {
       showFlash(r);
@@ -62,6 +64,9 @@ const mapDispatchToProps = dispatch => {
     },
     loggedInFlash() {
       dispatch(loggedInFlash());
+    },
+    hideModal() {
+      dispatch(hideModal());
     }
   };
 };
