@@ -18,25 +18,6 @@ class _Modal extends Component {
     document.addEventListener("keydown", this.closeOnEscape);
   }
 
-  closeOnBackgroundClick = e => {
-    const cN = e.target.className;
-    if (cN === s.Modal || cN === s.ModalContainer) {
-      this.closeModal();
-    }
-  };
-
-  closeOnEscape = e => {
-    if (e.keyCode === 27) {
-      this.closeModal()
-    }
-  };
-
-  closeModal = e => {
-    this.modalTarget.classList.remove(s.readyState)
-    this.modalTarget.classList.add(s.initialState);
-    setTimeout(() => { this.props.hideModal() }, 100)
-  }
-
   componentWillUpdate() {
     this._render();
   }
@@ -48,13 +29,25 @@ class _Modal extends Component {
     document.removeEventListener("keydown", this.closeOnEscape);
   }
 
-  renderCloseButton() {
-    return (
-      <button className={s.closeButton} onClick={this.closeModal}>
-        ✖
-      </button>
-    );
-  }
+  closeOnBackgroundClick = e => {
+    const cN = e.target.className,
+      isBackgroundClick = cN.includes(s.Modal) || cN.includes(s.ModalContainer);
+    if (isBackgroundClick) this.closeModal();
+  };
+
+  closeOnEscape = e => e.keyCode === 27 && this.closeModal();
+
+  closeModal = e => {
+    this.modalTarget.classList.remove(s.readyState);
+    this.modalTarget.classList.add(s.initialState);
+    setTimeout(() => this.props.hideModal(), 100);
+  };
+
+  renderCloseButton = () => (
+    <button className={s.closeButton} onClick={this.closeModal}>
+      ✖
+    </button>
+  );
 
   _render() {
     ReactDOM.render(
@@ -66,6 +59,7 @@ class _Modal extends Component {
     );
     setImmediate(() => this.modalTarget.classList.add(s.readyState));
   }
+
   render() {
     return <noscript />;
   }
@@ -83,5 +77,3 @@ const Modal = connect(
 )(_Modal);
 
 export const modalize = component => <Modal>{component}</Modal>;
-
-export default Modal;
