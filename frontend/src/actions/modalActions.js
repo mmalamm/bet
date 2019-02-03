@@ -4,3 +4,7 @@ export const showChangePicForm = () => dispatch => {
 export const hideModal = () => dispatch => {
   dispatch({ type: "HIDE_MODAL" });
 };
+
+export const showNewGameForm = () => dispatch => {
+  dispatch({ type: "SHOW_NEW_GAME_FORM" });
+};

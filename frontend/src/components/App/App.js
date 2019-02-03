@@ -39,7 +39,7 @@ class App extends Component {
     const { modal, flash } = this.props;
     return (
       <Router>
-        <div className={s.App}>
+        <div className={`${s.App} ${modal ? s.modal : ''}`}>
           {modal && renderModal(modal)}
           {flash && renderFlash(flash)}
           <Switch>

@@ -1,10 +1,10 @@
 import React from "react";
-// import NewGameForm from "../../containers/NewGameForm";
+import NewGameForm from "../NewGameForm/NewGameForm";
 import ChangePicForm from "../ChangePicForm/ChangePicForm";
 import { modalize } from "../Modal/Modal";
 
 const modals = {
-  // NEW_GAME_FORM: <NewGameForm />,
+  NEW_GAME_FORM: <NewGameForm />,
   CHANGE_PIC_FORM: <ChangePicForm />
 };
 

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import qS from "query-string";
 
@@ -13,6 +14,7 @@ import LoginForm from "./LoginForm";
 import WelcomeBar from "./WelcomeBar/WelcomeBar";
 
 import { showFlash, loggedInFlash } from "../../actions/flashActions";
+import { hideModal } from "../../actions/modalActions";
 
 const homePanels = {
   [AWAITING_AUTH_RESPONSE]: Loading,
@@ -23,14 +25,13 @@ const homePanels = {
 class Home extends Component {
   componentDidMount() {
     const queryStrings = qS.parse(this.props.location.search),
-      { showFlash, loggedInFlash } = this.props,
+      { showFlash, loggedInFlash, hideModal } = this.props,
       { r, l } = queryStrings;
-    console.log(queryStrings);
+    hideModal();
     if (r) {
       showFlash(r);
     }
     if (l) {
-      console.log(l);
       loggedInFlash();
     }
   }
@@ -55,16 +56,8 @@ class Home extends Component {
 }
 
 const mapStateToProps = ({ auth }) => ({ auth });
-const mapDispatchToProps = dispatch => {
-  return {
-    showFlash(flashId) {
-      dispatch(showFlash(flashId));
-    },
-    loggedInFlash() {
-      dispatch(loggedInFlash());
-    }
-  };
-};
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ showFlash, loggedInFlash, hideModal }, dispatch);
 
 export default connect(
   mapStateToProps,
