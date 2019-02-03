@@ -1,12 +1,21 @@
 .Modal {
   position: absolute;
   background-color: rgba(0, 0, 0, 0.45);
-  top: 0;
+  top: -100vh;
   left: 0;
   bottom: 0;
   right: 0;
   display: flex;
   justify-content: center;
+  transition: top .1s;
+}
+
+.initialState {
+  top: -100vh;
+}
+
+.readyState {
+  top: 0;
 }
 
 .ModalContainer {

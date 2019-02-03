@@ -21,15 +21,21 @@ class _Modal extends Component {
   closeOnBackgroundClick = e => {
     const cN = e.target.className;
     if (cN === s.Modal || cN === s.ModalContainer) {
-      this.props.hideModal();
+      this.closeModal();
     }
   };
 
   closeOnEscape = e => {
     if (e.keyCode === 27) {
-      this.props.hideModal();
+      this.closeModal()
     }
   };
+
+  closeModal = e => {
+    this.modalTarget.classList.remove(s.readyState)
+    this.modalTarget.classList.add(s.initialState);
+    setTimeout(() => { this.props.hideModal() }, 100)
+  }
 
   componentWillUpdate() {
     this._render();
@@ -44,7 +50,7 @@ class _Modal extends Component {
 
   renderCloseButton() {
     return (
-      <button className={s.closeButton} onClick={this.props.hideModal}>
+      <button className={s.closeButton} onClick={this.closeModal}>
         ✖
       </button>
     );
@@ -58,6 +64,7 @@ class _Modal extends Component {
       </Provider>,
       this.modalTarget
     );
+    setImmediate(() => this.modalTarget.classList.add(s.readyState));
   }
   render() {
     return <noscript />;
