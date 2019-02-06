@@ -7,9 +7,20 @@ import { updateIcon } from "../../actions/authActions";
 
 import MyIcon from "../common/MyIcon/MyIcon";
 
-import icons from "../../assets/icons";
+const icons = [
+  "068587",
+  "F2B134",
+  "ED553B",
+  "47AB6C",
+  "cd1e1f",
+  "911EB4",
+  "000075",
+  "4363D8",
+  "E6194B",
+  "28dfbb"
+];
 
-export class ChangePicForm extends Component {
+class ChangePicForm extends Component {
   updateIcon = iconName => e => {
     this.props.updateIcon(iconName);
   };
@@ -31,14 +42,18 @@ export class ChangePicForm extends Component {
       <div className={s.ChangePicForm}>
         {this.renderUserInfo()}
         <div className={s.buttonPanel}>
-          {Object.keys(icons).map(key => {
+          {icons.map(color => {
             return (
               <button
-                key={key}
-                onClick={this.updateIcon(key)}
+                key={color}
+                onClick={this.updateIcon(color)}
                 className={s.iconButton}
               >
-                <img className={s.buttonPic} src={icons[key]} alt={key} />
+                <div
+                  className={s.buttonPic}
+                  style={{ backgroundColor: `#${color}` }}
+                  alt={color}
+                />
               </button>
             );
           })}

@@ -1,8 +1,11 @@
 .MyIcon {
-  border: .1rem solid var(--dark-slate);
   border-radius: .25rem;
-  background-color: var(--dark-slate);
   padding: .25rem;
-  height: 5rem;
-  width: 5rem;
+  height: 4rem;
+  width: 4rem;
+  font-size: 2.4rem;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
