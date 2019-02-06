@@ -1,4 +1,3 @@
-import icons from "../../../assets/icons";
 import React, { Component } from "react";
 
 import styles from "./UserIcon.module.scss";
@@ -11,12 +10,13 @@ class UserIcon extends Component {
       user: { username, icon }
     } = this.props;
     return (
-      <img
+      <div
         className={`${styles.UserIcon} ${className}`}
-        src={icons[icon]}
-        alt={username}
+        style={{ backgroundColor: `#${icon}` }}
         onClick={onClick}
-      />
+      >
+        {username[0].toUpperCase()}
+      </div>
     );
   }
 }
