@@ -11,7 +11,6 @@ const sampleUsers = [
   ["hEy", "world"],
   ["BU", "nelly"],
   ['alVin', 'chun'],
-  
 ];
 
 const icons = [
@@ -47,7 +46,7 @@ log(promises);
 
 db.dropDatabase().then(() => {
   Promise.all(promises).then(users => {
-    log("following users seeded:", users.map(u => u.username));
+    log("following users seeded:", ...users.map(u => u.username));
     db.close();
   });
 });
