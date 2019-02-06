@@ -38,7 +38,7 @@ module.exports = async (req, res, next) => {
     username,
     usernameKey: keyify(username),
     passwordHash: hash,
-    icon: "apple",
+    icon: "112F41",
     points: 250
   })
     .save()
