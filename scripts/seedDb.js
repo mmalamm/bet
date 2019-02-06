@@ -4,7 +4,6 @@ const saltRounds = 2;
 const log = require("../config/log")("SEEDER", "bgYellow");
 const db = require("../services/mongoose");
 const User = require("../models/User");
-const fs = require("fs");
 
 const sampleUsers = [
   ["billY", "bob"],
@@ -12,13 +11,20 @@ const sampleUsers = [
   ["hEy", "world"],
   ["BU", "nelly"],
   ['alVin', 'chun'],
-  
 ];
 
-const icons = fs
-  .readdirSync("./frontend/src/assets")
-  .map(filename => filename.replace(".png", ""))
-  .filter(str => !str.includes("."));
+const icons = [
+  "068587",
+  "F2B134",
+  "ED553B",
+  "47AB6C",
+  "cd1e1f",
+  "911EB4",
+  "000075",
+  "4363D8",
+  "E6194B",
+  "28dfbb"
+];
 
 const promises = sampleUsers
   .map(u => {
@@ -40,7 +46,7 @@ log(promises);
 
 db.dropDatabase().then(() => {
   Promise.all(promises).then(users => {
-    log("following users seeded:", users.map(u => u.username));
+    log("following users seeded:", ...users.map(u => u.username));
     db.close();
   });
 });

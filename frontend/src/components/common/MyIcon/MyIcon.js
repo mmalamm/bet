@@ -1,4 +1,3 @@
-import icons from "../../../assets/icons";
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
@@ -12,12 +11,13 @@ class MyIcon extends Component {
       auth: { username, icon }
     } = this.props;
     return (
-      <img
+      <div
         className={`${styles.MyIcon} ${className}`}
-        src={icons[icon]}
-        alt={username}
+        style={{ backgroundColor: `#${icon}` }}
         onClick={onClick}
-      />
+      >
+        {username[0].toUpperCase()}
+      </div>
     );
   }
 }

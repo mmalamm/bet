@@ -1,7 +1,10 @@
 .UserIcon {
-  border: .1rem solid var(--dark-slate);
   border-radius: .25rem;
-  background-color: var(--dark-slate);
   height: 2rem;
   width: 2rem;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
