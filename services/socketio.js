@@ -7,11 +7,13 @@ const cookieParser = require("cookie-parser");
 const ioLog = require("../config/log")("socketIO", "yellow");
 const keys = require("../config/keys");
 const get = require("lodash/get");
+const mongoAdapter = require("socket.io-adapter-mongo");
 
 const log = require("../config/log")("debug", "bgWhite");
 
 module.exports = server => {
   const io = socketIo(server);
+  io.adapter(mongoAdapter(keys.mongoUri));
 
   io.use(
     passportSocketIo.authorize({
