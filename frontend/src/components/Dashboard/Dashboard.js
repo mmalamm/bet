@@ -23,6 +23,7 @@ class Dashboard extends Component {
     this.socket.on("disconnect", () => this.props.history.push("/home"));
   }
   componentWillUnmount() {
+    this.props.updateCurrentUsers([]);
     this.socket.disconnect();
   }
 
