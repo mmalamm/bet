@@ -39,9 +39,11 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
+const server = require("http").Server(app);
+require("./services/socketio")(server);
+
 const PORT = process.env.PORT || 5050;
-const server = app.listen(PORT, () => {
+
+server.listen(PORT, () => {
   log("server running on port", PORT);
 });
-
-require("./services/socketio")(server);
