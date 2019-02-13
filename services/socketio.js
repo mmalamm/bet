@@ -27,10 +27,8 @@ module.exports = server => {
   );
 
   io.on("connection", async socket => {
-    // const openGames = await Game.find({ inviteOnly: true }).limit(10);
     // const invites = await invites.find({  });
 
-    // socket.emit("openGames", openGames);
     // socket.emit("invites", invites);
     // socket.emit("games", games);
 

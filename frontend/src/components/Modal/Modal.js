@@ -11,7 +11,7 @@ import s from "./Modal.module.scss";
 class _Modal extends Component {
   componentDidMount() {
     this.modalTarget = document.createElement("div");
-    this.modalTarget.className = s.Modal;
+    this.modalTarget.className = `${s.Modal} ${s.initialState}`;
     this.modalTarget.addEventListener("click", this.closeOnBackgroundClick);
     document.body.appendChild(this.modalTarget);
     this._render();
