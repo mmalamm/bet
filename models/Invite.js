@@ -1,15 +1,13 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
-import User from "./User";
-import Game from "./Game";
 
 const inviteSchema = new Schema({
-  user: User,
+  user: { type: mongoose.Schema.Types.ObjectId, ref: "users" },
   status: String,
-  game: Game
+  game: { type: mongoose.Schema.Types.ObjectId, ref: "games" }
 });
 
-inviteSchema.index({ user: 1 });
+inviteSchema.index({ user: 1, game: 1 });
 
 const Invite = mongoose.model("invites", inviteSchema);
 

@@ -33,13 +33,16 @@ module.exports = server => {
     // socket.emit("games", games);
 
     socket.emit("welcome", socket.request.user);
-    io.emit('userConnected', `${socket.id} ${socket.request.user.username} joined`)
+    io.emit(
+      "userConnected",
+      `${socket.id} ${socket.request.user.username} joined`
+    );
     socket.on("disconnecting", e => {
       ioLog(socket.id + " dc from socket:", socket.request.user.username);
     });
     socket.on("disconnect", () => {
-      log(`${socket.id} disconnected`);
-      io.emit('userDisconnected', `${socket.id} disconnected`);
+      ioLog(`${socket.id} disconnected`);
+      io.emit("userDisconnected", `${socket.id} disconnected`);
     });
   });
 };
