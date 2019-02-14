@@ -1,10 +1,9 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
-import User from "./User";
 
 const gameSchema = new Schema({
   gameName: String,
-  owner: User,
+  owner: { type: mongoose.Schema.Types.ObjectId, ref: "users" },
   gameStatus: String,
   inviteOnly: Boolean,
   invites: [{ type: mongoose.Schema.Types.ObjectId, ref: "invites" }],

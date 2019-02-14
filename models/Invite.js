@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const inviteSchema = new Schema({
-  user: { type: mongoose.Schema.Types.ObjectId, ref: "users" },
+  usernameKey: String,
   status: String,
   game: { type: mongoose.Schema.Types.ObjectId, ref: "games" }
 });

@@ -1,26 +1,17 @@
-const express = require("express");
-const cookieParser = require("cookie-parser");
-
-const path = require("path");
-const cluster = require("cluster");
-const net = require("net");
-
-const farmhash = require("farmhash");
-
-const helmet = require("helmet");
-const passport = require("passport");
-
-const keys = require("./config/keys");
-
-const log = require("./config/log")("SERVER", "blue");
-
-const session = require("./session");
-
-const authenticate = require("./middlewares/authenticate");
-
-const PORT = process.env.PORT || 5050;
-
-const num_processes = require("os").cpus().length;
+const express = require("express"),
+  cookieParser = require("cookie-parser"),
+  path = require("path"),
+  cluster = require("cluster"),
+  net = require("net"),
+  farmhash = require("farmhash"),
+  helmet = require("helmet"),
+  passport = require("passport"),
+  keys = require("./config/keys"),
+  log = require("./config/log")("SERVER", "blue"),
+  session = require("./session"),
+  authenticate = require("./middlewares/authenticate"),
+  PORT = process.env.PORT || 5050,
+  num_processes = require("os").cpus().length;
 
 if (cluster.isMaster) {
   log("master cluster is at work!");
@@ -30,7 +21,7 @@ if (cluster.isMaster) {
     workers[i] = cluster.fork();
 
     workers[i].on("exit", (code, signal) => {
-      console.log("respawning worker", i);
+      log("respawning worker", i);
       spawn(i);
     });
   };
@@ -64,6 +55,8 @@ if (cluster.isMaster) {
   app.use("/api", authenticate);
 
   require("./models/User");
+  require("./models/Invite");
+  require("./models/Game");
   require("./services/passport");
 
   require("./routes/apiRoutes")(app);

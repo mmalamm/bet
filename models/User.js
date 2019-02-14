@@ -6,7 +6,9 @@ const userSchema = new Schema({
   usernameKey: String,
   passwordHash: String,
   icon: String,
-  points: Number
+  points: Number,
+  games: [{ type: mongoose.Schema.Types.ObjectId, ref: "games" }],
+  invites: [{ type: mongoose.Schema.Types.ObjectId, ref: "invites" }],
 });
 userSchema.index({ usernameKey: 1 }, { unique: true });
 const User = mongoose.model("users", userSchema);
