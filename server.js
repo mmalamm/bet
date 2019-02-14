@@ -68,6 +68,7 @@ if (cluster.isMaster) {
 
   require("./routes/apiRoutes")(app);
   require("./routes/authRoutes")(app);
+  require("./routes/gameRoutes")(app);
 
   if (process.env.NODE_ENV === "production") {
     app.use(express.static(path.join(__dirname, "frontend", "build")));

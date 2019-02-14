@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import s from "./NewGameForm.module.scss";
 import UserIcon from "../common/UserIcon/UserIcon";
-import { runSearch } from "./helpers";
+import { runSearch, createGame } from "./helpers";
 
 export default class NewGameForm extends Component {
   state = {
@@ -98,11 +98,11 @@ export default class NewGameForm extends Component {
   createGame = e => {
     e.preventDefault();
     const { gameName, inviteOnly, invitedUsers: invites } = this.state;
-    console.log({
+    createGame({
       gameName,
       inviteOnly,
       invites
-    });
+    }).then(d => console.log(d));
   };
 
   render() {
