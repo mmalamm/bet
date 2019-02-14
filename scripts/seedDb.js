@@ -11,6 +11,9 @@ const sampleUsers = [
   ["hEy", "world"],
   ["BU", "nelly"],
   ['alVin', 'chun'],
+  ['alVin1', 'chun'],
+  ['alVin2', 'chun'],
+  ['alVin3', 'chun'],
 ];
 
 const icons = [

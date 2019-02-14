@@ -66,6 +66,7 @@ if (cluster.isMaster) {
   require("./models/User");
   require("./services/passport");
 
+  require("./routes/apiRoutes")(app);
   require("./routes/authRoutes")(app);
 
   if (process.env.NODE_ENV === "production") {
