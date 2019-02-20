@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import UserIcon from "../common/UserIcon/UserIcon";
+import UserIcon from "../../common/UserIcon/UserIcon";
 
 import s from "./CurrentUsers.module.scss";
 

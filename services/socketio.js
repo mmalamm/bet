@@ -5,8 +5,9 @@ const MongoStore = require("connect-mongo")(expressSession);
 const db = require("./mongoose");
 const cookieParser = require("cookie-parser");
 const ioLog = require("../config/log")("socketIO", "yellow");
-const keys = require("../config/keys");
+const log = require("../config/log")("debug", "bgRed");
 const get = require("lodash/get");
+const keys = require("../config/keys");
 const mongoAdapter = require("socket.io-adapter-mongo");
 
 // const Game = require("../models/Game");
@@ -26,23 +27,45 @@ module.exports = server => {
     })
   );
 
-  io.on("connection", async socket => {
-    // const invites = await invites.find({  });
-
-    // socket.emit("invites", invites);
-    // socket.emit("games", games);
-
-    socket.emit("welcome", socket.request.user);
-    io.emit(
-      "userConnected",
-      `${socket.id} ${socket.request.user.username} joined`
+  io.on("connection", socket => {
+    const connectedSocketIds = () => Object.keys(io.sockets.sockets);
+    const connectedUsernames = () =>
+      connectedSocketIds().map(id =>
+        get(io, `sockets.sockets[${id}].request.user.username`)
+      );
+    const connectedUsers = () =>
+      connectedSocketIds().map(id => {
+        const user = get(io, `sockets.sockets[${id}].request.user`);
+        const { icon, username } = user;
+        return { icon, username };
+      });
+    log(
+      `user ${socket.request.user.username} has joined with socket ${socket.id}`
     );
+    log("connected users:", connectedUsernames());
+    const userSockets = passportSocketIo.filterSocketsByUser(
+      io,
+      user => user.username === socket.request.user.username
+    );
+    if (userSockets.length > 1) {
+      log("more than 1 instance logged in:", userSockets.length);
+      userSockets
+        .filter(s => s.id !== socket.id)
+        .forEach(skt => skt.disconnect());
+    }
+    ioLog("user connected to socket:", socket.request.user.username);
+    io.emit("welcome", "hey");
+    io.emit("currentUsers", connectedUsers());
+    socket.on("playTurn", turn => {
+      ioLog(turn);
+      socket.emit("updateStatus", `thanks ${socket.request.user.username}`);
+    });
     socket.on("disconnecting", e => {
       ioLog(socket.id + " dc from socket:", socket.request.user.username);
     });
     socket.on("disconnect", () => {
-      ioLog(`${socket.id} disconnected`);
-      io.emit("userDisconnected", `${socket.id} disconnected`);
+      log(`${socket.id} disconnected`, connectedUsernames());
+      io.emit("currentUsers", connectedUsers());
     });
   });
 };

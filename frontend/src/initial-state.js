@@ -8,7 +8,8 @@ const initialState = {
     points: null
   },
   modal: null,
-  flash: null
+  flash: null,
+  users: []
 };
 
 export default initialState;
