@@ -8,8 +8,9 @@ import { connect } from "react-redux";
 import s from "./Dashboard.module.scss";
 
 import NavBar from "../NavBar/NavBar";
+import CurrentUsers from "./CurrentUsers/CurrentUsers";
+
 import { updateCurrentUsers } from "../../actions/usersActions";
-import CurrentUsers from "./CurrentUsers";
 
 class Dashboard extends Component {
   componentDidMount() {
@@ -17,9 +18,8 @@ class Dashboard extends Component {
     this.socket = io();
     this.socket.on("connect", () => console.log("connected"));
     this.socket.on("welcome", d => console.log("welcome recieved:", d));
-    this.socket.on("currentUsers", d =>
-      updateUsers(d.filter(u => u.username !== this.props.auth.username))
-    );
+    this.socket.on("currentUsers", d => updateUsers(d));
+
     this.socket.on("disconnect", () => this.props.history.push("/home"));
   }
   componentWillUnmount() {
@@ -38,17 +38,15 @@ class Dashboard extends Component {
 
 const mapStateToProps = ({ users, auth }) => ({ currentUsers: users, auth });
 
-const mapDispatchToPros = dispatch => {
-  return {
-    updateCurrentUsers(users) {
-      dispatch(updateCurrentUsers(users));
-    }
-  };
-};
+const mapDispatchToProps = dispatch => ({
+  updateCurrentUsers(users) {
+    dispatch(updateCurrentUsers(users));
+  }
+});
 
 export default withRouter(
   connect(
     mapStateToProps,
-    mapDispatchToPros
+    mapDispatchToProps
   )(Dashboard)
 );

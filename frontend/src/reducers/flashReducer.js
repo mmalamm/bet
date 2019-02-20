@@ -5,7 +5,8 @@ import {
   USERNAME_TAKEN_FLASH,
   GENERIC_ERROR_FLASH,
   LOGGED_IN_FLASH,
-  SHORT_PASSWORD_FLASH
+  SHORT_PASSWORD_FLASH,
+  HIDE_FLASH
 } from "../constants";
 
 const flashMapper = {
@@ -18,7 +19,7 @@ const flashMapper = {
 };
 
 const flashReducer = (state = initialState.flash, action) => {
-  if (action.type === "HIDE_FLASH") return null;
+  if (action.type === HIDE_FLASH) return null;
   return flashMapper[action.type] || state;
 };
 

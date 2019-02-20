@@ -5,16 +5,13 @@ const MongoStore = require("connect-mongo")(expressSession);
 const db = require("./mongoose");
 const cookieParser = require("cookie-parser");
 const ioLog = require("../config/log")("socketIO", "yellow");
-const log = require("../config/log")("debug", "bgRed");
-const get = require("lodash/get");
 const keys = require("../config/keys");
-const mongoAdapter = require("socket.io-adapter-mongo");
+const get = require("lodash/get");
 
-// const Game = require("../models/Game");
+const log = require("../config/log")("debug", "bgWhite");
 
 module.exports = server => {
   const io = socketIo(server);
-  io.adapter(mongoAdapter(keys.mongoUri));
 
   io.use(
     passportSocketIo.authorize({
@@ -42,7 +39,7 @@ module.exports = server => {
     log(
       `user ${socket.request.user.username} has joined with socket ${socket.id}`
     );
-    log("connected users:", connectedUsernames());
+    log(connectedUsernames());
     const userSockets = passportSocketIo.filterSocketsByUser(
       io,
       user => user.username === socket.request.user.username

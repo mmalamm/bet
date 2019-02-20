@@ -1,3 +1,4 @@
+
 import initialState from '../initial-state';
 
 const usersReducer = (state = initialState.users, action) => {

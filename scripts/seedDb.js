@@ -10,7 +10,10 @@ const sampleUsers = [
   ["gW", "bush"],
   ["hEy", "world"],
   ["BU", "nelly"],
-  ['alVin', 'chun'],
+  ["alVin", "chun"],
+  ["alVin1", "chun"],
+  ["alVin2", "chun"],
+  ["alVin3", "chun"]
 ];
 
 const icons = [
@@ -38,13 +41,16 @@ const promises = sampleUsers
       usernameKey: username.toLowerCase(),
       passwordHash: hash,
       icon: icons[randomIconIdx],
-      points: 250
+      points: 250,
+      games: [],
+      invites: []
     }).save();
   });
 
 log(promises);
 
 db.dropDatabase().then(() => {
+  log("db dropped!!");
   Promise.all(promises).then(users => {
     log("following users seeded:", ...users.map(u => u.username));
     db.close();
