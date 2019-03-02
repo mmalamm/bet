@@ -13,7 +13,9 @@ const mongoAdapter = require("socket.io-adapter-mongo");
 // const Game = require("../models/Game");
 
 module.exports = server => {
-  const io = socketIo(server);
+  const io = socketIo(server, {
+    transports: ["websocket"]
+  });
   io.adapter(mongoAdapter(keys.mongoUri));
 
   io.use(

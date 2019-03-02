@@ -15,7 +15,9 @@ import { updateCurrentUsers } from "../../actions/usersActions";
 class Dashboard extends Component {
   componentDidMount() {
     const updateUsers = this.props.updateCurrentUsers;
-    this.socket = io();
+    this.socket = io("/", {
+      transports: ["websocket"]
+    });
     this.socket.on("connect", () => console.log("connected"));
     this.socket.on("welcome", d => console.log("welcome recieved:", d));
     this.socket.on("currentUsers", d => updateUsers(d));
